@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-L07BJYTNDW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-L07BJYTNDW');
+
+  // CTA click tracking
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('[data-cta]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        gtag('event', 'cta_click', { cta_location: el.getAttribute('data-cta') });
+      });
+    });
+  });
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Fold — The marketing workspace for people who'd rather be working</title>
+<meta name="description" content="Two layers: your live marketing on top, your business knowledge underneath, feeding each other constantly. AI agents draft, publish, and learn. First 2 weeks free.">
+<meta property="og:title" content="The Fold">
+<meta property="og:description" content="The marketing workspace for people who'd rather be working. First 2 weeks free.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #16181d;
+    --ink-soft: #4b4f58;
+    --paper: #faf8f5;
+    --paper-card: #ffffff;
+    --substrate: #16181d;
+    --substrate-soft: #23262e;
+    --substrate-text: #c9cdd6;
+    --accent: #e8632c;
+    --accent-dark: #cf5322;
+    --line: #e7e2da;
+    --radius: 14px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+  /* Nav */
+  nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 0;
+  }
+  .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; }
+  .logo span { color: var(--accent); }
+  .nav-cta {
+    background: var(--ink); color: #fff; text-decoration: none;
+    padding: 9px 18px; border-radius: 99px; font-size: 0.9rem; font-weight: 600;
+    transition: background 0.15s;
+  }
+  .nav-cta:hover { background: var(--accent); }
+
+  /* Hero */
+  .hero { padding: 72px 0 64px; text-align: center; }
+  .hero h1 {
+    font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+    font-weight: 800; letter-spacing: -0.03em; line-height: 1.1;
+    max-width: 780px; margin: 0 auto 24px;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero p {
+    font-size: 1.15rem; color: var(--ink-soft);
+    max-width: 620px; margin: 0 auto 12px;
+  }
+  .hero .kicker { font-weight: 600; color: var(--ink); }
+  .cta-row { margin-top: 34px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .btn {
+    display: inline-block; background: var(--accent); color: #fff;
+    text-decoration: none; font-weight: 700; font-size: 1.05rem;
+    padding: 16px 34px; border-radius: 99px;
+    box-shadow: 0 4px 14px rgba(232, 99, 44, 0.3);
+    transition: transform 0.12s, background 0.15s;
+  }
+  .btn:hover { background: var(--accent-dark); transform: translateY(-1px); }
+  .cta-note { font-size: 0.88rem; color: var(--ink-soft); }
+
+  /* Layers section */
+  .layers { padding: 30px 0 80px; }
+  .layers-headline {
+    text-align: center; font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+    font-weight: 800; letter-spacing: -0.02em; margin-bottom: 44px;
+  }
+  .fold-visual {
+    border-radius: var(--radius); overflow: hidden;
+    box-shadow: 0 20px 50px rgba(22, 24, 29, 0.12);
+    border: 1px solid var(--line);
+  }
+  .layer { padding: 44px 48px; }
+  .layer-above { background: var(--paper-card); }
+  .layer-label {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+  }
+  .layer h3 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .layer p { color: var(--ink-soft); max-width: 640px; }
+  .layer-below { background: var(--substrate); }
+  .layer-below h3 { color: #fff; }
+  .layer-below p { color: var(--substrate-text); }
+  .fold-seam {
+    background: linear-gradient(to right, var(--accent), #f0925f);
+    display: flex; align-items: center; justify-content: center;
+    gap: 14px; padding: 12px; color: #fff;
+    font-size: 0.85rem; font-weight: 700; letter-spacing: 0.04em;
+  }
+  .fold-seam svg { animation: cycle 3s ease-in-out infinite; }
+  @keyframes cycle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
+  .loop-copy { max-width: 680px; margin: 44px auto 0; text-align: center; }
+  .loop-copy p { margin-bottom: 16px; font-size: 1.08rem; color: var(--ink-soft); }
+  .loop-copy .strong { color: var(--ink); font-weight: 600; }
+
+  /* How it works */
+  .how { padding: 80px 0; border-top: 1px solid var(--line); }
+  h2.section {
+    font-size: clamp(1.6rem, 3.5vw, 2.3rem); font-weight: 800;
+    letter-spacing: -0.02em; margin-bottom: 40px;
+  }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .step {
+    background: var(--paper-card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 30px 26px;
+  }
+  .step-num {
+    width: 34px; height: 34px; border-radius: 99px;
+    background: var(--ink); color: #fff; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px; font-size: 0.95rem;
+  }
+  .step h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+  .step p { color: var(--ink-soft); font-size: 0.97rem; }
+
+  /* What you get */
+  .get { padding: 80px 0; border-top: 1px solid var(--line); }
+  .get-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .get-card {
+    background: var(--paper-card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 30px 28px;
+  }
+  .get-card h3 { font-size: 1.12rem; font-weight: 700; margin-bottom: 8px; }
+  .get-card h3::before { content: "— "; color: var(--accent); }
+  .get-card p { color: var(--ink-soft); font-size: 0.98rem; }
+
+  /* Business of one */
+  .one {
+    background: var(--substrate); color: #fff;
+    padding: 80px 0; text-align: center;
+  }
+  .one h2 {
+    font-size: clamp(1.6rem, 3.5vw, 2.3rem); font-weight: 800;
+    letter-spacing: -0.02em; margin-bottom: 18px;
+  }
+  .one p {
+    color: var(--substrate-text); font-size: 1.12rem;
+    max-width: 620px; margin: 0 auto;
+  }
+  .one p strong { color: #fff; }
+
+  /* Final CTA */
+  .final { padding: 90px 0; text-align: center; }
+  .final h2 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800;
+    letter-spacing: -0.03em; margin-bottom: 14px;
+  }
+  .final p { color: var(--ink-soft); font-size: 1.1rem; margin-bottom: 6px; }
+
+  footer {
+    border-top: 1px solid var(--line); padding: 28px 0;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.85rem; color: var(--ink-soft);
+  }
+
+  @media (max-width: 760px) {
+    .steps, .get-grid { grid-template-columns: 1fr; }
+    .layer { padding: 34px 26px; }
+    .hero { padding: 48px 0 52px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav>
+    <div class="logo">The <span>Fold</span></div>
+    <a class="nav-cta" href="#signup" data-cta="nav">Start free</a>
+  </nav>
+</div>
+
+<header class="hero wrap">
+  <h1>The marketing workspace for people who'd rather be <em>working</em>.</h1>
+  <p>You shoot weddings, or design kitchens, or coach founders. And somewhere between clients you're also the entire marketing department.</p>
+  <p class="kicker">The Fold takes that second job off you.</p>
+  <div class="cta-row">
+    <a class="btn" href="#signup" data-cta="hero">Start free. First 2 weeks on us.</a>
+    <span class="cta-note">No credit card.</span>
+  </div>
+</header>
+
+<section class="layers wrap">
+  <h2 class="layers-headline">Two layers. That's the whole idea.</h2>
+
+  <div class="fold-visual">
+    <div class="layer layer-above">
+      <div class="layer-label">Layer one</div>
+      <h3>Above the Fold</h3>
+      <p>Everything the world sees. Posts, blog, ads, newsletter, campaigns. Live, on one dashboard.</p>
+    </div>
+    <div class="fold-seam">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+      FEEDING EACH OTHER. CONSTANTLY.
+    </div>
+    <div class="layer layer-below">
+      <div class="layer-label">Layer two</div>
+      <h3>The Substrate</h3>
+      <p>Everything underneath. Your services, your pricing, your voice, what worked last month. The stuff that currently lives in your head.</p>
+    </div>
+  </div>
+
+  <div class="loop-copy">
+    <p>The Substrate shapes every draft before it's written <span class="strong">(so it sounds like you)</span>.</p>
+    <p>Everything you publish flows back down: results, learnings, what landed. <span class="strong">August starts smarter than July did.</span></p>
+  </div>
+</section>
+
+<section class="how wrap">
+  <h2 class="section">How it works</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Connect your channels</h3>
+      <p>Google, Meta, LinkedIn. Plug in what you use, skip the rest.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Fill the Substrate</h3>
+      <p>Your services, pricing, past work, brand notes. 10 minutes. It gets richer on its own from there.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Set the leash, per agent</h3>
+      <p>Some agents wait for your approval on everything. Some run on their own and keep you posted. Your call, changeable anytime.</p>
+    </div>
+  </div>
+</section>
+
+<section class="get wrap">
+  <h2 class="section">What you get</h2>
+  <div class="get-grid">
+    <div class="get-card">
+      <h3>Your whole month on one screen</h3>
+      <p>What's running, what's due, what it's costing you.</p>
+    </div>
+    <div class="get-card">
+      <h3>Drafts that sound like you</h3>
+      <p>Every post and newsletter is written from your knowledge base (your offer, your tone, your actual work).</p>
+    </div>
+    <div class="get-card">
+      <h3>A budget you can watch</h3>
+      <p>Spend vs. budget, live, with a projection of where the month is heading. The end-of-month surprise goes away.</p>
+    </div>
+    <div class="get-card">
+      <h3>A system that keeps learning</h3>
+      <p>Every result feeds back into the Substrate. Week 6 knows things week 1 didn't.</p>
+    </div>
+  </div>
+</section>
+
+<section class="one">
+  <div class="wrap">
+    <h2>Built for the business of one</h2>
+    <p>You're the photographer <strong>and</strong> the ad manager. The designer <strong>and</strong> the newsletter editor. The Fold holds the second job while you do the first.</p>
+  </div>
+</section>
+
+<section class="final wrap" id="signup">
+  <h2>First 2 weeks free</h2>
+  <p>Set up in 10 minutes. Cancel anytime.</p>
+  <p>Everything the Substrate learned stays yours.</p>
+  <div class="cta-row">
+    <!-- TODO: point this at the real signup URL -->
+    <a class="btn" href="#" data-cta="footer">Get started</a>
+    <span class="cta-note">No credit card.</span>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer>
+    <div class="logo">The <span>Fold</span></div>
+    <div>© 2026 The Fold</div>
+  </footer>
+</div>
+
+</body>
+</html>

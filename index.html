@@ -1,313 +1,407 @@
 <!DOCTYPE html>
+<!--
+  LEMARC HOMEPAGE
+  Two things to set before this goes live:
+    1. FORM_ENDPOINT in the <script> at the bottom (Formspree, Tally, or your own API route).
+    2. The contact email in the footer (currently support@lemarc.ai).
+  Privacy and Terms are linked at /privacy and /terms. Those URLs get locked into the
+  Google OAuth consent screen, so don't move them once you file.
+-->
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-L07BJYTNDW"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-L07BJYTNDW');
-
-  // CTA click tracking
-  document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('[data-cta]').forEach(function (el) {
-      el.addEventListener('click', function () {
-        gtag('event', 'cta_click', { cta_location: el.getAttribute('data-cta') });
-      });
-    });
-  });
-</script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Fold — The marketing workspace for people who'd rather be working</title>
-<meta name="description" content="Two layers: your live marketing on top, your business knowledge underneath, feeding each other constantly. AI agents draft, publish, and learn. First 2 weeks free.">
-<meta property="og:title" content="The Fold">
-<meta property="og:description" content="The marketing workspace for people who'd rather be working. First 2 weeks free.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lemarc | Marketing operations for early-stage B2B teams</title>
+<meta name="description" content="The marketing workspace for outnumbered marketers. Lemarc connects to Google Analytics, Google Ads, Meta, LinkedIn, and HubSpot. Early access is open.">
+<meta property="og:title" content="Lemarc">
+<meta property="og:description" content="The marketing workspace for outnumbered marketers.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://lemarc.ai/">
+<link rel="canonical" href="https://lemarc.ai/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --ink: #16181d;
-    --ink-soft: #4b4f58;
-    --paper: #faf8f5;
-    --paper-card: #ffffff;
-    --substrate: #16181d;
-    --substrate-soft: #23262e;
-    --substrate-text: #c9cdd6;
-    --accent: #e8632c;
-    --accent-dark: #cf5322;
-    --line: #e7e2da;
-    --radius: 14px;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--paper);
-    color: var(--ink);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+:root{
+  --paper:#E9E9E1;
+  --raised:#F4F4EE;
+  --ink:#16181A;
+  --ink-2:#5C615E;
+  --signal:#1E3AAF;
+  --signal-soft:#C9D2F0;
+  --edge:#D3D3C6;
+  --measure:38rem;
+  --pad:clamp(1.25rem,5vw,2.5rem);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Inter Tight",system-ui,-apple-system,sans-serif;
+  font-size:clamp(1rem,0.96rem + 0.2vw,1.0625rem);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:"Bricolage Grotesque","Inter Tight",sans-serif;font-weight:600;letter-spacing:-0.02em;line-height:1.06;margin:0}
+p{margin:0}
+a{color:var(--signal);text-decoration:none;text-underline-offset:3px}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:2px}
 
-  /* Nav */
-  nav {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 22px 0;
-  }
-  .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; }
-  .logo span { color: var(--accent); }
-  .nav-cta {
-    background: var(--ink); color: #fff; text-decoration: none;
-    padding: 9px 18px; border-radius: 99px; font-size: 0.9rem; font-weight: 600;
-    transition: background 0.15s;
-  }
-  .nav-cta:hover { background: var(--accent); }
+.wrap{max-width:64rem;margin:0 auto;padding-inline:var(--pad)}
+.eyebrow{
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:0.6875rem;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--ink-2);margin:0 0 1.25rem;
+}
+.eyebrow::before{content:"◟ ";color:var(--signal)}
 
-  /* Hero */
-  .hero { padding: 72px 0 64px; text-align: center; }
-  .hero h1 {
-    font-size: clamp(2.2rem, 5.5vw, 3.6rem);
-    font-weight: 800; letter-spacing: -0.03em; line-height: 1.1;
-    max-width: 780px; margin: 0 auto 24px;
-  }
-  .hero h1 em { font-style: normal; color: var(--accent); }
-  .hero p {
-    font-size: 1.15rem; color: var(--ink-soft);
-    max-width: 620px; margin: 0 auto 12px;
-  }
-  .hero .kicker { font-weight: 600; color: var(--ink); }
-  .cta-row { margin-top: 34px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-  .btn {
-    display: inline-block; background: var(--accent); color: #fff;
-    text-decoration: none; font-weight: 700; font-size: 1.05rem;
-    padding: 16px 34px; border-radius: 99px;
-    box-shadow: 0 4px 14px rgba(232, 99, 44, 0.3);
-    transition: transform 0.12s, background 0.15s;
-  }
-  .btn:hover { background: var(--accent-dark); transform: translateY(-1px); }
-  .cta-note { font-size: 0.88rem; color: var(--ink-soft); }
+/* ---------- header ---------- */
+.site-head{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--edge)}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:4rem}
+.mark{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:1.375rem;letter-spacing:-0.03em;color:var(--ink)}
+.mark:hover{text-decoration:none}
+.mark i{font-style:normal;color:var(--signal)}
+.head-link{font-size:0.9375rem;font-weight:500}
 
-  /* Layers section */
-  .layers { padding: 30px 0 80px; }
-  .layers-headline {
-    text-align: center; font-size: clamp(1.6rem, 3.5vw, 2.3rem);
-    font-weight: 800; letter-spacing: -0.02em; margin-bottom: 44px;
-  }
-  .fold-visual {
-    border-radius: var(--radius); overflow: hidden;
-    box-shadow: 0 20px 50px rgba(22, 24, 29, 0.12);
-    border: 1px solid var(--line);
-  }
-  .layer { padding: 44px 48px; }
-  .layer-above { background: var(--paper-card); }
-  .layer-label {
-    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
-  }
-  .layer h3 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 10px; }
-  .layer p { color: var(--ink-soft); max-width: 640px; }
-  .layer-below { background: var(--substrate); }
-  .layer-below h3 { color: #fff; }
-  .layer-below p { color: var(--substrate-text); }
-  .fold-seam {
-    background: linear-gradient(to right, var(--accent), #f0925f);
-    display: flex; align-items: center; justify-content: center;
-    gap: 14px; padding: 12px; color: #fff;
-    font-size: 0.85rem; font-weight: 700; letter-spacing: 0.04em;
-  }
-  .fold-seam svg { animation: cycle 3s ease-in-out infinite; }
-  @keyframes cycle {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-3px); }
-  }
-  .loop-copy { max-width: 680px; margin: 44px auto 0; text-align: center; }
-  .loop-copy p { margin-bottom: 16px; font-size: 1.08rem; color: var(--ink-soft); }
-  .loop-copy .strong { color: var(--ink); font-weight: 600; }
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-block;background:var(--signal);color:var(--paper);
+  font-family:"Inter Tight",sans-serif;font-size:1rem;font-weight:500;
+  padding:0.8125rem 1.5rem;border:0;border-radius:4px;cursor:pointer;
+  transition:background .15s ease;
+}
+.btn:hover{background:#182F8E;text-decoration:none}
+.btn:disabled{opacity:.5;cursor:default}
 
-  /* How it works */
-  .how { padding: 80px 0; border-top: 1px solid var(--line); }
-  h2.section {
-    font-size: clamp(1.6rem, 3.5vw, 2.3rem); font-weight: 800;
-    letter-spacing: -0.02em; margin-bottom: 40px;
-  }
-  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-  .step {
-    background: var(--paper-card); border: 1px solid var(--line);
-    border-radius: var(--radius); padding: 30px 26px;
-  }
-  .step-num {
-    width: 34px; height: 34px; border-radius: 99px;
-    background: var(--ink); color: #fff; font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 16px; font-size: 0.95rem;
-  }
-  .step h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
-  .step p { color: var(--ink-soft); font-size: 0.97rem; }
+/* ---------- hero ---------- */
+.hero{padding:clamp(3.5rem,9vw,6.5rem) 0 clamp(3rem,7vw,5rem)}
+.hero .wrap{display:grid;gap:clamp(2.5rem,5vw,4rem);grid-template-columns:1fr}
+@media(min-width:56rem){.hero .wrap{grid-template-columns:1.05fr 0.95fr;align-items:center}}
+h1{font-size:clamp(2.35rem,1.4rem + 4.2vw,4rem);max-width:14ch}
+.hero p{margin-top:1.5rem;max-width:var(--measure);color:var(--ink-2);font-size:1.0625rem}
+.hero .btn{margin-top:2rem}
+.hero .fine{margin-top:0.75rem;font-size:0.875rem;color:var(--ink-2)}
 
-  /* What you get */
-  .get { padding: 80px 0; border-top: 1px solid var(--line); }
-  .get-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
-  .get-card {
-    background: var(--paper-card); border: 1px solid var(--line);
-    border-radius: var(--radius); padding: 30px 28px;
-  }
-  .get-card h3 { font-size: 1.12rem; font-weight: 700; margin-bottom: 8px; }
-  .get-card h3::before { content: "— "; color: var(--accent); }
-  .get-card p { color: var(--ink-soft); font-size: 0.98rem; }
+.arcbox{width:100%}
+.arcbox svg{width:100%;height:auto;display:block;overflow:visible}
+.arc-line{fill:none;stroke:var(--signal);stroke-width:2.5;stroke-linecap:round}
+.arc-node{fill:var(--paper);stroke:var(--signal);stroke-width:2.5}
+@media(prefers-reduced-motion:no-preference){
+  .arc-line{stroke-dasharray:760;stroke-dashoffset:760;animation:draw 1.6s cubic-bezier(.5,.05,.2,1) .25s forwards}
+  .arc-node{opacity:0;animation:pop .4s ease forwards}
+  .arc-node:nth-of-type(1){animation-delay:.4s}
+  .arc-node:nth-of-type(2){animation-delay:.75s}
+  .arc-node:nth-of-type(3){animation-delay:1.05s}
+  .arc-node:nth-of-type(4){animation-delay:1.35s}
+  .arc-node:nth-of-type(5){animation-delay:1.65s}
+}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes pop{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 
-  /* Business of one */
-  .one {
-    background: var(--substrate); color: #fff;
-    padding: 80px 0; text-align: center;
-  }
-  .one h2 {
-    font-size: clamp(1.6rem, 3.5vw, 2.3rem); font-weight: 800;
-    letter-spacing: -0.02em; margin-bottom: 18px;
-  }
-  .one p {
-    color: var(--substrate-text); font-size: 1.12rem;
-    max-width: 620px; margin: 0 auto;
-  }
-  .one p strong { color: #fff; }
+/* ---------- generic section ---------- */
+section{border-top:1px solid var(--edge)}
+.band{padding:clamp(3rem,7vw,5rem) 0}
+h2{font-size:clamp(1.7rem,1.3rem + 1.6vw,2.4rem);max-width:20ch}
+.lede{margin-top:1.25rem;max-width:var(--measure);color:var(--ink-2)}
 
-  /* Final CTA */
-  .final { padding: 90px 0; text-align: center; }
-  .final h2 {
-    font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800;
-    letter-spacing: -0.03em; margin-bottom: 14px;
-  }
-  .final p { color: var(--ink-soft); font-size: 1.1rem; margin-bottom: 6px; }
+/* ---------- capabilities ---------- */
+.caps{margin-top:3rem;display:grid;gap:1px;background:var(--edge);border:1px solid var(--edge);border-radius:6px;overflow:hidden}
+@media(min-width:48rem){.caps{grid-template-columns:repeat(3,1fr)}}
+.cap{background:var(--raised);padding:clamp(1.5rem,3vw,2rem)}
+.cap h3{font-size:1.1875rem;letter-spacing:-0.01em}
+.cap p{margin-top:0.625rem;color:var(--ink-2);font-size:0.9875rem}
 
-  footer {
-    border-top: 1px solid var(--line); padding: 28px 0;
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: 0.85rem; color: var(--ink-soft);
-  }
+/* ---------- connections ---------- */
+.chips{
+  margin:2.25rem 0 0;padding:0;list-style:none;
+  display:flex;flex-wrap:wrap;align-items:center;
+  gap:0.75rem 1.25rem;
+}
+.chips li{
+  font-family:"Bricolage Grotesque",sans-serif;font-weight:600;
+  font-size:clamp(1.0625rem,1rem + 0.3vw,1.25rem);letter-spacing:-0.015em;
+  padding-right:1.25rem;border-right:1px solid var(--edge);
+}
+.chips li:last-child{padding-right:0;border-right:0}
+.promises{
+  margin-top:2.5rem;display:grid;gap:1.125rem;max-width:var(--measure);
+  padding-left:1.375rem;border-left:2px solid var(--signal);
+}
+.promises p{color:var(--ink-2)}
+.promises strong{color:var(--ink);font-weight:500}
+.legal-links{margin-top:2rem;font-size:0.9375rem;color:var(--ink-2);max-width:var(--measure)}
 
-  @media (max-width: 760px) {
-    .steps, .get-grid { grid-template-columns: 1fr; }
-    .layer { padding: 34px 26px; }
-    .hero { padding: 48px 0 52px; }
-  }
+/* ---------- tiers ---------- */
+.tiers{margin-top:2.5rem;display:grid;gap:1px;background:var(--edge);border:1px solid var(--edge);border-radius:6px;overflow:hidden}
+@media(min-width:50rem){.tiers{grid-template-columns:repeat(3,1fr)}}
+.tier{background:var(--raised);padding:1.5rem 1.375rem;position:relative}
+.tier h3{font-size:1.0625rem}
+.tier p{margin-top:0.5rem;font-size:0.9rem;color:var(--ink-2)}
+
+/* ---------- apply ---------- */
+#apply{background:var(--raised)}
+.apply-grid{display:grid;gap:clamp(2rem,5vw,4rem)}
+@media(min-width:52rem){.apply-grid{grid-template-columns:1fr 1fr;align-items:start}}
+form{display:grid;gap:1.125rem}
+.field{display:grid;gap:0.4rem}
+label{font-size:0.875rem;font-weight:500}
+label span{color:var(--ink-2);font-weight:400}
+input{
+  font-family:inherit;font-size:1rem;color:var(--ink);
+  background:var(--paper);border:1px solid var(--edge);border-radius:4px;
+  padding:0.7rem 0.875rem;width:100%;
+}
+input:focus{border-color:var(--signal);outline:none;box-shadow:0 0 0 3px var(--signal-soft)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.opt{display:flex;align-items:flex-start;gap:0.625rem;font-size:0.9375rem;font-weight:400;cursor:pointer}
+.opt input{width:1.05rem;height:1.05rem;margin:0.22rem 0 0;flex:none;accent-color:var(--signal);cursor:pointer}
+.opt span{color:var(--ink-2)}
+.status{font-size:0.9375rem;min-height:1.4em}
+.status[data-tone="bad"]{color:#8C2118}
+.done{
+  border:1px solid var(--signal);border-radius:6px;padding:1.5rem;background:var(--paper);
+}
+.done h3{font-size:1.125rem}
+.done p{margin-top:0.5rem;color:var(--ink-2);font-size:0.9375rem}
+[hidden]{display:none !important}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--edge);padding:2.5rem 0 3.5rem;font-size:0.875rem;color:var(--ink-2)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1.25rem;justify-content:space-between;align-items:center}
+footer nav a + a{margin-left:1.25rem}
 </style>
 </head>
 <body>
 
-<div class="wrap">
-  <nav>
-    <div class="logo">The <span>Fold</span></div>
-    <a class="nav-cta" href="#signup" data-cta="nav">Start free</a>
-  </nav>
-</div>
-
-<header class="hero wrap">
-  <h1>The marketing workspace for people who'd rather be <em>working</em>.</h1>
-  <p>You shoot weddings, or design kitchens, or coach founders. And somewhere between clients you're also the entire marketing department.</p>
-  <p class="kicker">The Fold takes that second job off you.</p>
-  <div class="cta-row">
-    <a class="btn" href="#signup" data-cta="hero">Start free. First 2 weeks on us.</a>
-    <span class="cta-note">No credit card.</span>
+<header class="site-head">
+  <div class="wrap">
+    <a class="mark" href="/">lem<i>arc</i></a>
+    <a class="head-link" href="#apply">Apply for access</a>
   </div>
 </header>
 
-<section class="layers wrap">
-  <h2 class="layers-headline">Two layers. That's the whole idea.</h2>
+<main>
 
-  <div class="fold-visual">
-    <div class="layer layer-above">
-      <div class="layer-label">Layer one</div>
-      <h3>Above the Fold</h3>
-      <p>Everything the world sees. Posts, blog, ads, newsletter, campaigns. Live, on one dashboard.</p>
-    </div>
-    <div class="fold-seam">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-      FEEDING EACH OTHER. CONSTANTLY.
-    </div>
-    <div class="layer layer-below">
-      <div class="layer-label">Layer two</div>
-      <h3>The Substrate</h3>
-      <p>Everything underneath. Your services, your pricing, your voice, what worked last month. The stuff that currently lives in your head.</p>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <h1>The marketing workspace for outnumbered marketers.</h1>
+        <p>Early-stage B2B teams. Small ones.</p>
+        <a class="btn" href="#apply">Apply for early bird access</a>
+        <p class="fine">We set up every team ourselves.</p>
+      </div>
+
+      <div class="arcbox">
+        <svg viewBox="0 0 520 310" aria-hidden="true" focusable="false">
+          <path class="arc-line" d="M 20 290 C 180 285, 300 220, 500 40"/>
+          <circle class="arc-node" cx="20"  cy="290" r="5"/>
+          <circle class="arc-node" cx="134" cy="274" r="5"/>
+          <circle class="arc-node" cx="245" cy="231" r="5"/>
+          <circle class="arc-node" cx="363" cy="154" r="5"/>
+          <circle class="arc-node" cx="500" cy="40"  r="5"/>
+        </svg>
+      </div>
     </div>
   </div>
 
-  <div class="loop-copy">
-    <p>The Substrate shapes every draft before it's written <span class="strong">(so it sounds like you)</span>.</p>
-    <p>Everything you publish flows back down: results, learnings, what landed. <span class="strong">August starts smarter than July did.</span></p>
-  </div>
-</section>
+  <!-- WHO IT'S FOR -->
+  <section>
+    <div class="wrap band">
+      <p class="eyebrow">Who it's for</p>
+      <h2>The marketing team of one, two, or three.</h2>
+      <p class="lede">You have a positioning doc, a blog nobody has time to write, an ads account somebody set up last quarter, and a board that wants pipeline. The work is not complicated. There is just more of it than there are hours, and it never compounds because nothing carries over from one month to the next.</p>
+      <p class="lede">Lemarc holds the operation so you can spend your hours on the parts that need you.</p>
+    </div>
+  </section>
 
-<section class="how wrap">
-  <h2 class="section">How it works</h2>
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <h3>Connect your channels</h3>
-      <p>Google, Meta, LinkedIn. Plug in what you use, skip the rest.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <h3>Fill the Substrate</h3>
-      <p>Your services, pricing, past work, brand notes. 10 minutes. It gets richer on its own from there.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <h3>Set the leash, per agent</h3>
-      <p>Some agents wait for your approval on everything. Some run on their own and keep you posted. Your call, changeable anytime.</p>
-    </div>
-  </div>
-</section>
+  <!-- CAPABILITIES -->
+  <section>
+    <div class="wrap band">
+      <p class="eyebrow">What you get</p>
+      <h2>Three things, from the first day.</h2>
 
-<section class="get wrap">
-  <h2 class="section">What you get</h2>
-  <div class="get-grid">
-    <div class="get-card">
-      <h3>Your whole month on one screen</h3>
-      <p>What's running, what's due, what it's costing you.</p>
+      <div class="caps">
+        <div class="cap">
+          <h3>A month you can see</h3>
+          <p>What's running, what's due, and what your ads have spent this month, on one screen. The end-of-month surprise goes away.</p>
+        </div>
+        <div class="cap">
+          <h3>Work that sounds like you</h3>
+          <p>Drafts come out of your own positioning, your offer, and your past work. Editing stays editing instead of turning into a rewrite.</p>
+        </div>
+        <div class="cap">
+          <h3>Spend you can watch</h3>
+          <p>Live against the budget you set, with a projection of where the month lands.</p>
+        </div>
+      </div>
     </div>
-    <div class="get-card">
-      <h3>Drafts that sound like you</h3>
-      <p>Every post and newsletter is written from your knowledge base (your offer, your tone, your actual work).</p>
-    </div>
-    <div class="get-card">
-      <h3>A budget you can watch</h3>
-      <p>Spend vs. budget, live, with a projection of where the month is heading. The end-of-month surprise goes away.</p>
-    </div>
-    <div class="get-card">
-      <h3>A system that keeps learning</h3>
-      <p>Every result feeds back into the Substrate. Week 6 knows things week 1 didn't.</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section class="one">
+  <!-- CONNECTIONS -->
+  <section>
+    <div class="wrap band">
+      <p class="eyebrow">Connections</p>
+      <h2>Connect what you already use.</h2>
+
+      <ul class="chips">
+        <li>Google Analytics</li>
+        <li>Google Ads</li>
+        <li>Meta</li>
+        <li>LinkedIn</li>
+        <li>HubSpot</li>
+      </ul>
+
+      <p class="lede">Plug in what you have, skip the rest, disconnect whenever you want.</p>
+
+      <div class="promises">
+        <p><strong>Runs on numbers.</strong> Performance and spend from everything you connect. Contact records are hashed on the way in.</p>
+        <p><strong>You make the calls.</strong> Lemarc brings the whole picture and a recommendation. You decide what happens, and everything it runs has an off switch.</p>
+      </div>
+
+      <p class="legal-links">Learn more in the <a href="/privacy">privacy policy</a> and the <a href="/terms">terms of service</a>.</p>
+    </div>
+  </section>
+
+  <!-- TIERS -->
+  <section>
+    <div class="wrap band">
+      <p class="eyebrow">Plans</p>
+      <h2>Three plans. Which is you?</h2>
+
+      <div class="tiers">
+        <div class="tier">
+          <h3>Founder</h3>
+          <p>You're the founder and the marketing department.</p>
+        </div>
+        <div class="tier">
+          <h3>Pro</h3>
+          <p>One marketer running the whole thing. Every channel, one operation.</p>
+        </div>
+        <div class="tier">
+          <h3>Team</h3>
+          <p>A few marketers who need to see the same plan and the same numbers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLY -->
+  <section id="apply">
+    <div class="wrap band">
+      <div class="apply-grid">
+        <div>
+          <p class="eyebrow">Early bird access</p>
+          <h2>All this, and we haven't met.</h2>
+          <p class="lede">Three fields and we'll take it from there. We set up every early team ourselves, so the first thing you get is a conversation, not a docs page.</p>
+        </div>
+
+        <div>
+          <form id="applyForm" novalidate>
+            <div class="hp" aria-hidden="true">
+              <label for="company">Company</label>
+              <input id="company" name="company" type="text" tabindex="-1" autocomplete="off">
+            </div>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="email">Work email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="linkedin">LinkedIn <span>(profile or company page)</span></label>
+              <input id="linkedin" name="linkedin" type="url" placeholder="https://linkedin.com/in/..." required>
+            </div>
+            <button class="btn" type="submit" id="submitBtn">Apply for access</button>
+            <p class="status" id="status" role="status" aria-live="polite"></p>
+            <label class="opt">
+              <input type="checkbox" id="news" name="news">
+              <span>Send me the occasional note on what we're building. Nothing else, ever.</span>
+            </label>
+          </form>
+
+          <div class="done" id="done" hidden>
+            <h3>Got it.</h3>
+            <p>We'll come back to you from a lemarc.ai address, usually within a week.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
   <div class="wrap">
-    <h2>Built for the business of one</h2>
-    <p>You're the photographer <strong>and</strong> the ad manager. The designer <strong>and</strong> the newsletter editor. The Fold holds the second job while you do the first.</p>
+    <span>&copy; 2026 Lemarc</span>
+    <nav>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="mailto:support@lemarc.ai">support@lemarc.ai</a>
+    </nav>
   </div>
-</section>
+</footer>
 
-<section class="final wrap" id="signup">
-  <h2>First 2 weeks free</h2>
-  <p>Set up in 10 minutes. Cancel anytime.</p>
-  <p>Everything the Substrate learned stays yours.</p>
-  <div class="cta-row">
-    <!-- TODO: point this at the real signup URL -->
-    <a class="btn" href="#" data-cta="footer">Get started</a>
-    <span class="cta-note">No credit card.</span>
-  </div>
-</section>
+<script>
+// Set this to your form endpoint (Formspree, Tally, or your own API route).
+const FORM_ENDPOINT = "";
 
-<div class="wrap">
-  <footer>
-    <div class="logo">The <span>Fold</span></div>
-    <div>© 2026 The Fold</div>
-  </footer>
-</div>
+const form = document.getElementById("applyForm");
+const btn = document.getElementById("submitBtn");
+const status = document.getElementById("status");
+const done = document.getElementById("done");
 
+function fail(msg){
+  status.textContent = msg;
+  status.dataset.tone = "bad";
+}
+
+form.addEventListener("submit", async function(e){
+  e.preventDefault();
+  status.textContent = "";
+  delete status.dataset.tone;
+
+  if(form.company.value){ form.hidden = true; done.hidden = false; return; }
+
+  const data = {
+    name: form.name.value.trim(),
+    email: form.email.value.trim(),
+    linkedin: form.linkedin.value.trim(),
+    newsletter: form.news.checked
+  };
+
+  if(!data.name){ return fail("Add your name so we know who we're talking to."); }
+  if(!/^\S+@\S+\.\S+$/.test(data.email)){ return fail("That email address doesn't look right."); }
+  if(!/linkedin\.com\//i.test(data.linkedin)){ return fail("Paste a full LinkedIn URL, starting with https://"); }
+
+  if(!FORM_ENDPOINT){
+    return fail("The form isn't wired up yet. Email support@lemarc.ai and we'll pick it up there.");
+  }
+
+  btn.disabled = true;
+  status.textContent = "Sending.";
+
+  try{
+    const res = await fetch(FORM_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(data)
+    });
+    if(!res.ok){ throw new Error(res.status); }
+    form.hidden = true;
+    done.hidden = false;
+    done.scrollIntoView({ behavior: "smooth", block: "center" });
+  }catch(err){
+    btn.disabled = false;
+    fail("That didn't go through. Try again, or email support@lemarc.ai.");
+  }
+});
+</script>
 </body>
 </html>

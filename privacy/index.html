@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <!--
   LEMARC PRIVACY POLICY  ->  lemarc.ai/privacy
-  Operator is set to Matan Buganim, Israel. Update the date on publish. Do NOT publish before migration 0078 is applied and old rows are purged.
+  Operator is set to Matan Buganim, Israel. Update the date on publish.
   This URL gets locked into the Google, Meta and LinkedIn consent screens. Do not move it.
-  Do NOT publish before migration 0078 is applied and old rows are purged.
 -->
 <html lang="en">
 <head>
@@ -11,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy policy | Lemarc</title>
 <meta name="description" content="What data Lemarc handles, where it comes from, and what we do and do not do with it.">
-<link rel="canonical" href="https://lemarc.ai/privacy">
+<link rel="canonical" href="https://www.lemarc.ai/privacy">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
@@ -86,7 +85,7 @@ footer nav a + a{margin-left:1.25rem}
 <div class="wrap">
 
 <h1>Privacy policy</h1>
-<p class="stamp">Last updated 23 July 2026</p>
+<p class="stamp">Last updated 26 July 2026</p>
 
 <p class="intro">Lemarc is a marketing workspace. This policy explains what data Lemarc handles, where it comes from, what we do with it, and what we do not do with it. It is written to be read, not to be survived.</p>
 
@@ -224,7 +223,7 @@ footer nav a + a{margin-left:1.25rem}
   <li><strong>Jina Reader</strong>, a page-reading service. It receives URLs that you provide (your own site, research links) so that page content can be extracted.</li>
   <li><strong>Supabase</strong>, our database and authentication host. Your workspace data is stored there.</li>
 </ul>
-<p>These three are what the Lemarc <em>application</em> relies on. The application itself contains no product analytics, no session recording, no error-tracking service and no advertising pixels. The lemarc.ai marketing site is a separate surface with its own standard analytics and advertising tools, covered in section 10.</p>
+<p>These three are what the Lemarc <em>application</em> relies on. The application itself contains no product analytics, no session recording, no error-tracking service and no advertising pixels. The lemarc.ai marketing site is a separate surface with its own standard analytics, covered in section 10.</p>
 
 
 <h2 id="data-deletion">6. Deleting your data</h2>
@@ -262,8 +261,13 @@ footer nav a + a{margin-left:1.25rem}
 <h2 id="cookies">10. Cookies and the marketing site</h2>
 <p>There are two different surfaces here, and they behave differently.</p>
 <p><strong>The Lemarc application</strong> (the product you sign in to) uses one cookie, to keep you signed in. It carries no third-party analytics, no session recording, no advertising or tracking pixels, and no error-tracking service. What it holds about your use of the product is the operational data described in section 3, kept in our own database.</p>
-<p><strong>The lemarc.ai marketing site</strong> (the public pages, including this one) uses standard analytics to understand how people find and read it: Google Analytics, and Microsoft Clarity for aggregate usage and heatmaps. We may also place advertising pixels from platforms such as Google, Meta or LinkedIn to measure and target our own promotions. These run on the marketing pages only, never inside the product.</p>
-<p>You can control cookies through your browser, and where required we ask for your consent on the marketing site before non-essential analytics or advertising cookies are set.</p>
+<p><strong>The lemarc.ai marketing site</strong> (the public pages, including this one) can use two analytics services: Google Analytics 4, to understand how people find and read the site, and Microsoft Clarity, for aggregate usage and heatmaps. Both run on the marketing pages only, never inside the product. We do not run advertising or retargeting pixels here.</p>
+<p>Nothing analytics-related loads before you choose. A banner asks once on your first visit:</p>
+<ul>
+  <li><strong>Accept</strong> loads Google Analytics 4 and Microsoft Clarity, which set their own cookies (<code>_ga</code>, <code>_ga_&lt;id&gt;</code>, <code>_clck</code>, <code>_clsk</code>).</li>
+  <li><strong>Decline</strong> loads neither, and expires any analytics cookies left on your browser from an earlier visit.</li>
+</ul>
+<p>Either way, we record your choice in a first-party cookie named <code>lemarc_consent</code> for one year so that we do not ask again. To change your mind, clear this site's cookies in your browser and the banner will return.</p>
 
 
 <h2 id="transfers">11. Where data is stored</h2>
@@ -301,7 +305,8 @@ footer nav a + a{margin-left:1.25rem}
 <!-- ============ COOKIE CONSENT (marketing site only) ============
      Blocks GA, Clarity and any ad pixels until the visitor accepts.
      Put your real IDs in CONSENT_CONFIG below. Nothing fires before consent.
-     Choice is stored in localStorage ("lemarc_consent") so it asks once. -->
+     Choice is stored in a first-party cookie ("lemarc_consent"), localStorage as a
+     fallback, so it asks once. Declining also clears analytics cookies already set. -->
 <div id="cc" hidden>
   <div class="cc-card" role="dialog" aria-live="polite" aria-label="Cookie notice">
     <p class="cc-text">We use cookies to see how people find and read this site. Analytics only, and only if you say yes. <a href="/privacy#cookies">How we use them.</a></p>
@@ -313,6 +318,7 @@ footer nav a + a{margin-left:1.25rem}
 </div>
 
 <style>
+[hidden]{display:none !important}
 #cc{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;justify-content:center;padding:var(--pad)}
 .cc-card{
   background:var(--ink);color:var(--paper);border-radius:8px;
@@ -338,8 +344,8 @@ footer nav a + a{margin-left:1.25rem}
 (function(){
   // ---- put your real IDs here ----
   var CONSENT_CONFIG = {
-    ga4: "",       // e.g. "G-XXXXXXX"  (Google Analytics 4)
-    clarity: ""    // e.g. "abcdefghij" (Microsoft Clarity project id)
+    ga4: "G-L07BJYTNDW",   // Google Analytics 4 measurement ID
+    clarity: "xsedkoqb2d"  // Microsoft Clarity project id
     // ad pixels: add their loaders inside enable() the same way, so they too wait for consent
   };
 
@@ -348,10 +354,11 @@ footer nav a + a{margin-left:1.25rem}
   var saved = read();
 
   if (saved === "yes") { enable(); }
-  else if (saved !== "no") { el.hidden = false; }
+  else if (saved === "no") { forget(); }
+  else { el.hidden = false; }
 
   document.getElementById("ccYes").onclick = function(){ set("yes"); enable(); };
-  document.getElementById("ccNo").onclick  = function(){ set("no"); };
+  document.getElementById("ccNo").onclick  = function(){ set("no"); forget(); };
 
   function set(v){
     // Scope to the exact host (no domain attr) so it is consistent across every
@@ -359,6 +366,19 @@ footer nav a + a{margin-left:1.25rem}
     document.cookie = KEY + "=" + v + "; path=/; max-age=31536000; samesite=lax";
     try { localStorage.setItem(KEY, v); } catch(e){}
     el.hidden = true;
+  }
+
+  // Declining applies retroactively: expire any analytics cookies an earlier visit
+  // left behind. GA and Clarity scope theirs to the registrable domain, so clear
+  // the dot-domain, bare-domain and host-only forms -- only the matching one bites.
+  function forget(){
+    var base = location.hostname.replace(/^www\./, "");
+    var scopes = ["; domain=." + base, "; domain=" + base, ""];
+    document.cookie.split("; ").forEach(function(pair){
+      var name = pair.split("=")[0];
+      if (name !== "_ga" && name.indexOf("_ga_") !== 0 && name !== "_clck" && name !== "_clsk") return;
+      scopes.forEach(function(d){ document.cookie = name + "=; path=/; max-age=0" + d; });
+    });
   }
 
   function read(){

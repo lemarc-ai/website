@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Terms of service | Lemarc</title>
 <meta name="description" content="The terms you agree to when you use Lemarc.">
-<link rel="canonical" href="https://lemarc.ai/terms">
+<link rel="canonical" href="https://www.lemarc.ai/terms">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
@@ -224,7 +224,8 @@ footer nav a + a{margin-left:1.25rem}
 <!-- ============ COOKIE CONSENT (marketing site only) ============
      Blocks GA, Clarity and any ad pixels until the visitor accepts.
      Put your real IDs in CONSENT_CONFIG below. Nothing fires before consent.
-     Choice is stored in localStorage ("lemarc_consent") so it asks once. -->
+     Choice is stored in a first-party cookie ("lemarc_consent"), localStorage as a
+     fallback, so it asks once. Declining also clears analytics cookies already set. -->
 <div id="cc" hidden>
   <div class="cc-card" role="dialog" aria-live="polite" aria-label="Cookie notice">
     <p class="cc-text">We use cookies to see how people find and read this site. Analytics only, and only if you say yes. <a href="/privacy#cookies">How we use them.</a></p>
@@ -236,6 +237,7 @@ footer nav a + a{margin-left:1.25rem}
 </div>
 
 <style>
+[hidden]{display:none !important}
 #cc{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;justify-content:center;padding:var(--pad)}
 .cc-card{
   background:var(--ink);color:var(--paper);border-radius:8px;
@@ -261,8 +263,8 @@ footer nav a + a{margin-left:1.25rem}
 (function(){
   // ---- put your real IDs here ----
   var CONSENT_CONFIG = {
-    ga4: "",       // e.g. "G-XXXXXXX"  (Google Analytics 4)
-    clarity: ""    // e.g. "abcdefghij" (Microsoft Clarity project id)
+    ga4: "G-L07BJYTNDW",   // Google Analytics 4 measurement ID
+    clarity: "xsedkoqb2d"  // Microsoft Clarity project id
     // ad pixels: add their loaders inside enable() the same way, so they too wait for consent
   };
 
@@ -271,10 +273,11 @@ footer nav a + a{margin-left:1.25rem}
   var saved = read();
 
   if (saved === "yes") { enable(); }
-  else if (saved !== "no") { el.hidden = false; }
+  else if (saved === "no") { forget(); }
+  else { el.hidden = false; }
 
   document.getElementById("ccYes").onclick = function(){ set("yes"); enable(); };
-  document.getElementById("ccNo").onclick  = function(){ set("no"); };
+  document.getElementById("ccNo").onclick  = function(){ set("no"); forget(); };
 
   function set(v){
     // Scope to the exact host (no domain attr) so it is consistent across every
@@ -282,6 +285,19 @@ footer nav a + a{margin-left:1.25rem}
     document.cookie = KEY + "=" + v + "; path=/; max-age=31536000; samesite=lax";
     try { localStorage.setItem(KEY, v); } catch(e){}
     el.hidden = true;
+  }
+
+  // Declining applies retroactively: expire any analytics cookies an earlier visit
+  // left behind. GA and Clarity scope theirs to the registrable domain, so clear
+  // the dot-domain, bare-domain and host-only forms -- only the matching one bites.
+  function forget(){
+    var base = location.hostname.replace(/^www\./, "");
+    var scopes = ["; domain=." + base, "; domain=" + base, ""];
+    document.cookie.split("; ").forEach(function(pair){
+      var name = pair.split("=")[0];
+      if (name !== "_ga" && name.indexOf("_ga_") !== 0 && name !== "_clck" && name !== "_clsk") return;
+      scopes.forEach(function(d){ document.cookie = name + "=; path=/; max-age=0" + d; });
+    });
   }
 
   function read(){

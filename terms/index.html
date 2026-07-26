@@ -268,8 +268,7 @@ footer nav a + a{margin-left:1.25rem}
 
   var KEY = "lemarc_consent";
   var el = document.getElementById("cc");
-  var saved = null;
-  try { saved = localStorage.getItem(KEY); } catch(e){}
+  var saved = read();
 
   if (saved === "yes") { enable(); }
   else if (saved !== "no") { el.hidden = false; }
@@ -278,8 +277,19 @@ footer nav a + a{margin-left:1.25rem}
   document.getElementById("ccNo").onclick  = function(){ set("no"); };
 
   function set(v){
+    // Domain-wide cookie so the choice carries across every page and subdomain,
+    // for a year. Falls back to localStorage too, belt and braces.
+    var host = location.hostname.replace(/^www\./, "");
+    var dom = host.indexOf(".") > -1 ? "; domain=." + host : "";
+    document.cookie = KEY + "=" + v + "; path=/; max-age=31536000; samesite=lax" + dom;
     try { localStorage.setItem(KEY, v); } catch(e){}
     el.hidden = true;
+  }
+
+  function read(){
+    var m = document.cookie.match(/(?:^|; )lemarc_consent=([^;]+)/);
+    if (m) return m[1];
+    try { return localStorage.getItem(KEY); } catch(e){ return null; }
   }
 
   function enable(){

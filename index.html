@@ -350,7 +350,7 @@ footer nav a + a{margin-left:1.25rem}
 
 <script>
 // Set this to your form endpoint (Formspree, Tally, or your own API route).
-const FORM_ENDPOINT = "https://formspree.io/f/xeeypbkk";
+const FORM_ENDPOINT = "";
 
 const form = document.getElementById("applyForm");
 const btn = document.getElementById("submitBtn");
@@ -459,11 +459,9 @@ form.addEventListener("submit", async function(e){
   document.getElementById("ccNo").onclick  = function(){ set("no"); };
 
   function set(v){
-    // Domain-wide cookie so the choice carries across every page and subdomain,
-    // for a year. Falls back to localStorage too, belt and braces.
-    var host = location.hostname.replace(/^www\./, "");
-    var dom = host.indexOf(".") > -1 ? "; domain=." + host : "";
-    document.cookie = KEY + "=" + v + "; path=/; max-age=31536000; samesite=lax" + dom;
+    // Scope to the exact host (no domain attr) so it is consistent across every
+    // page on www.lemarc.ai, for a year. localStorage as a fallback.
+    document.cookie = KEY + "=" + v + "; path=/; max-age=31536000; samesite=lax";
     try { localStorage.setItem(KEY, v); } catch(e){}
     el.hidden = true;
   }

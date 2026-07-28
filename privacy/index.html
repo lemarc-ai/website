@@ -11,13 +11,17 @@
 <title>Privacy policy | Lemarc</title>
 <meta name="description" content="What data Lemarc handles, where it comes from, and what we do and do not do with it.">
 <link rel="canonical" href="https://www.lemarc.ai/privacy">
+<link rel="icon" type="image/svg+xml" href="/images/logo/favicon.svg">
+<link rel="icon" href="/images/logo/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png">
+<meta name="theme-color" content="#6059FF">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
 :root{
   --paper:#E9E9E1;--raised:#F4F4EE;--ink:#16181A;--ink-2:#5C615E;
-  --signal:#1E3AAF;--signal-soft:#C9D2F0;--edge:#D3D3C6;
+  --signal:#4F47E6;--signal-soft:#D9D6FF;--brand:#6059FF;--edge:#D3D3C6;
   --pad:clamp(1.25rem,5vw,2.5rem);
 }
 *{box-sizing:border-box}
@@ -35,6 +39,8 @@ a{color:var(--signal);text-underline-offset:3px}
 .site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:4rem;max-width:64rem}
 .mark{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:1.375rem;letter-spacing:-0.03em;color:var(--ink);text-decoration:none}
 .mark i{font-style:normal;color:var(--signal)}
+.mark{display:inline-flex;align-items:center}
+.mark img{height:30px;width:auto;display:block}
 .head-link{font-size:0.9375rem;font-weight:500;color:var(--signal);text-decoration:none}
 
 .doc{padding:clamp(2.5rem,6vw,4rem) 0 4rem}
@@ -47,7 +53,7 @@ h3{font-size:1.0625rem;margin-top:1.75rem;letter-spacing:-0.01em}
 p,ul,ol{margin:1rem 0 0}
 ul,ol{padding-left:1.25rem}
 li{margin-top:0.5rem}
-code{font-family:"JetBrains Mono",monospace;font-size:0.8125em;background:var(--signal-soft);color:#152B85;padding:0.1em 0.35em;border-radius:3px}
+code{font-family:"JetBrains Mono",monospace;font-size:0.8125em;background:var(--signal-soft);color:#312BA6;padding:0.1em 0.35em;border-radius:3px}
 
 .summary{margin-top:2rem;background:var(--raised);border:1px solid var(--edge);border-radius:6px;padding:clamp(1.25rem,3vw,1.75rem)}
 .summary h2{margin-top:0;font-size:1.125rem}
@@ -64,7 +70,7 @@ code{font-family:"JetBrains Mono",monospace;font-size:0.8125em;background:var(--
   text-transform:uppercase;color:var(--ink-2);font-weight:400;white-space:nowrap}
 .tbl td:first-child{white-space:nowrap;font-weight:500}
 
-.note{margin-top:1.5rem;padding-left:1.25rem;border-left:2px solid var(--signal);color:var(--ink-2)}
+.note{margin-top:1.5rem;padding-left:1.25rem;border-left:2px solid var(--brand);color:var(--ink-2)}
 
 footer{border-top:1px solid var(--edge);padding:2.5rem 0 3.5rem;font-size:0.875rem;color:var(--ink-2)}
 footer .wrap{display:flex;flex-wrap:wrap;gap:1.25rem;justify-content:space-between;align-items:center;max-width:64rem}
@@ -76,7 +82,7 @@ footer nav a + a{margin-left:1.25rem}
 
 <header class="site-head">
   <div class="wrap">
-    <a class="mark" href="/">lem<i>arc</i></a>
+    <a class="mark" href="/" aria-label="Lemarc home"><img src="/images/logo/lemarc-logo.svg" alt="Lemarc" width="101" height="30"></a>
     <a class="head-link" href="/">Back to lemarc.ai</a>
   </div>
 </header>
@@ -334,7 +340,7 @@ footer nav a + a{margin-left:1.25rem}
   padding:0.55rem 1.125rem;border-radius:5px;border:0;
   background:var(--signal);color:var(--paper);
 }
-.cc-btn:hover{background:#3350c8}
+.cc-btn:hover{background:#4038CC}
 .cc-ghost{background:transparent;color:var(--paper);border:1px solid rgba(233,233,225,.35)}
 .cc-ghost:hover{background:rgba(233,233,225,.1)}
 @media(max-width:32rem){.cc-actions{flex:1 1 100%}.cc-btn{flex:1}}

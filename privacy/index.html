@@ -107,7 +107,7 @@ footer nav a + a{margin-left:1.25rem}
 <div class="wrap">
 
 <h1>Privacy policy</h1>
-<p class="stamp">Last updated 26 July 2026</p>
+<p class="stamp">Last updated 29 July 2026</p>
 
 <p class="intro">Lemarc is a marketing workspace. This policy explains what data Lemarc handles, where it comes from, what we do with it, and what we do not do with it. It is written to be read, not to be survived.</p>
 
@@ -117,7 +117,7 @@ footer nav a + a{margin-left:1.25rem}
     <li>From the platforms you connect, Lemarc stores performance and spend numbers. It does not store names, email addresses, or anything else that identifies a person.</li>
     <li>CRM contacts and companies are hashed before they are written. Those tables have no name, email, phone or address column at all.</li>
     <li>Lemarc holds your login email and the access tokens for the accounts you connect. It needs both to work.</li>
-    <li>Inside the product, three third parties receive data: our AI model provider, a page-reading service, and our database host. The public marketing site uses standard analytics, which is separate.</li>
+    <li>Inside the product, four third parties receive data: our AI model provider, an image-generation provider, a page-reading service, and our database host. The public marketing site uses standard analytics, which is separate.</li>
     <li>We do not sell your data, and we do not share it for advertising.</li>
   </ul>
 </div>
@@ -127,7 +127,7 @@ footer nav a + a{margin-left:1.25rem}
   <li><a href="#connected">2. Data from platforms you connect</a></li>
   <li><a href="#account">3. Data about you as an account holder</a></li>
   <li><a href="#applicants">4. Data from early access applicants</a></li>
-  <li><a href="#third-parties">5. Third parties</a></li>
+  <li><a href="#third-parties">5. Third parties (our processors)</a></li>
   <li><a href="#data-deletion">6. Deleting your data</a></li>
   <li><a href="#retention">7. How long we keep things</a></li>
   <li><a href="#security">8. Security</a></li>
@@ -212,11 +212,19 @@ footer nav a + a{margin-left:1.25rem}
 <p>Lemarc's use and transfer of information received from Google APIs to any other app adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
 <p>Specifically: we use Google user data only to provide and improve the features described in this policy, we do not transfer it except as needed to provide those features or as required by law, we do not use it for advertising, and we do not allow humans to read it except with your explicit permission (for example when you ask for support), where required by law, or where necessary for security.</p>
 
-<h3>2.6 Disconnecting a platform</h3>
+<h3>2.6 Meta Platform Data</h3>
+<p>Lemarc's use of data received from Meta's APIs ("Platform Data", as that term is defined in Meta's Platform Terms) follows Meta's Platform Terms and Developer Policies.</p>
+<p>Specifically: we use Platform Data only to provide and improve the features described in this policy; we do not sell it, and we do not transfer it to any third party such as a data broker, advertising network or information reseller — the only parties that receive it are the processors listed in section 5, acting on our instructions; and we delete Platform Data when you disconnect Meta, when you ask us to, when your access to Lemarc ends, or when Meta requires it, and in any event once we no longer need it for the purpose it was collected.</p>
+
+<h3>2.7 LinkedIn member data</h3>
+<p>Data received from LinkedIn's APIs — which LinkedIn calls "member data" — is used only to provide the features described in this policy: identifying you when you connect, and reading the company pages and ad reporting you authorize. We use it read only. Lemarc does not post, comment or advertise on LinkedIn on your behalf.</p>
+<p>In line with LinkedIn's API Terms of Use and Marketing API restrictions, we do not use LinkedIn member data for advertising, sales or recruiting, to build or enrich audience lists, or to enhance CRM records; we do not combine it with other data to build member profiles; and we do not export, sell or transfer it, except to the processors listed in section 5 acting on our instructions. We hold it only within the limits LinkedIn's terms set, and we delete it when you disconnect LinkedIn, when you ask us to, or when your access to Lemarc ends. As noted in 2.8, LinkedIn does not currently offer a working token-revocation endpoint, so you can also remove Lemarc's access directly in your LinkedIn settings.</p>
+
+<h3>2.8 Disconnecting a platform</h3>
 <p>You can disconnect any platform at any time from inside Lemarc. When you do, we delete the stored token and stop reading from that platform immediately.</p>
 <p>We also ask the platform to revoke the token on its side. Google and Meta support this and we do it. LinkedIn does not currently offer a working revocation endpoint, so a LinkedIn token stays valid on LinkedIn's side until it expires, even though Lemarc has deleted it and no longer uses it. You can remove Lemarc's access directly in your LinkedIn settings.</p>
 
-<h3>2.7 When we act as a processor</h3>
+<h3>2.9 When we act as a processor</h3>
 <p>When you connect a CRM, the underlying records are your data about your customers, and Lemarc handles them on your instructions. We act as a data processor for that data and you are the controller.</p>
 <p>That means: we process it only to provide the service, we will sign a data processing agreement on request, we will help you respond to access and erasure requests from your own contacts, and we will notify you without undue delay if we become aware of a breach affecting your data.</p>
 <p>One detail worth stating plainly. When a record is deleted or merged in your CRM, Lemarc marks its local record as deleted and keeps a pointer so historical outcome totals stay correct. It does not remove the row immediately. Since the record holds no name or email in the first place, what remains is a hash and a set of numbers. If you want it gone entirely, ask us and we will remove it.</p>
@@ -238,14 +246,16 @@ footer nav a + a{margin-left:1.25rem}
 <p>We do not sell this data, we do not pass it to anyone, and we do not use it for anything other than what is described here. If you would like your application deleted, email <a href="mailto:support@lemarc.ai">support@lemarc.ai</a> and we will remove it.</p>
 
 
-<h2 id="third-parties">5. Third parties</h2>
-<p>Three services receive data as part of running Lemarc. There is no fourth.</p>
+<h2 id="third-parties">5. Third parties (our processors)</h2>
+<p>Four services process data on Lemarc's instructions as part of running the product. Each acts as our <strong>processor</strong>. Where you are the controller and Lemarc is your processor (section 2.9) — your CRM data, for example — these services act as our <strong>subprocessors</strong>. Each is bound by terms that permit it to process data only to provide its service to us, not for its own purposes. There is no fifth.</p>
 <ul>
-  <li><strong>Anthropic</strong>, our AI model provider. It receives the prompts we send, your workspace brief, the knowledge material we inject, and the results of tools the model runs. As described in 2.4, CRM data reaches it only as aggregate totals.</li>
-  <li><strong>Jina Reader</strong>, a page-reading service. It receives URLs that you provide (your own site, research links) so that page content can be extracted.</li>
-  <li><strong>Supabase</strong>, our database and authentication host. Your workspace data is stored there.</li>
+  <li><strong>Anthropic</strong> (processor / subprocessor), our AI model provider. It receives the prompts we send, your workspace brief, the knowledge material we inject, and the results of tools the model runs. As described in 2.4, CRM data reaches it only as aggregate totals. Our agreement with Anthropic does not permit it to train on your data.</li>
+  <li><strong>OpenAI</strong> (processor / subprocessor), our image-generation provider. When Lemarc generates a new image, it sends only a text prompt — the visual description, composition and colour values it composes — and no images; your logo and any headline or body copy are added locally and are never sent. When you edit an existing image, that image is sent to OpenAI so it can be modified. No CRM data is ever sent for image generation. OpenAI does not train on this data, holds it for up to 30 days for abuse monitoring and then deletes it, and processes it under a data processing agreement.</li>
+  <li><strong>Jina Reader</strong> (processor / subprocessor), a page-reading service. It receives URLs that you provide (your own site, research links) so that page content can be extracted.</li>
+  <li><strong>Supabase</strong> (processor / subprocessor), our database and authentication host. Your workspace data is stored there.</li>
 </ul>
-<p>These three are what the Lemarc <em>application</em> relies on. The application itself contains no product analytics, no session recording, no error-tracking service and no advertising pixels. The lemarc.ai marketing site is a separate surface with its own standard analytics, covered in section 10.</p>
+<p><strong>Current subprocessors:</strong> Anthropic (AI model provider, United States), OpenAI (image generation, United States), Jina Reader (page reading, United States), and Supabase (database and authentication host, United States).</p>
+<p>These four are what the Lemarc <em>application</em> relies on. The application itself contains no product analytics, no session recording, no error-tracking service and no advertising pixels. The lemarc.ai marketing site is a separate surface with its own standard analytics, covered in section 10.</p>
 
 
 <h2 id="data-deletion">6. Deleting your data</h2>

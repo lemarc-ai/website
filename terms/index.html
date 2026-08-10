@@ -245,7 +245,7 @@ footer nav a + a{margin-left:1.25rem}
 </footer>
 
 <!-- ============ COOKIE CONSENT (marketing site only) ============
-     Blocks GA, Clarity and any ad pixels until the visitor accepts.
+     Blocks GA and any ad pixels until the visitor accepts.
      Put your real IDs in CONSENT_CONFIG below. Nothing fires before consent.
      Choice is stored in a first-party cookie ("lemarc_consent"), localStorage as a
      fallback, so it asks once. Declining also clears analytics cookies already set. -->
@@ -286,8 +286,7 @@ footer nav a + a{margin-left:1.25rem}
 (function(){
   // ---- put your real IDs here ----
   var CONSENT_CONFIG = {
-    ga4: "G-L07BJYTNDW",   // Google Analytics 4 measurement ID
-    clarity: "xsedkoqb2d"  // Microsoft Clarity project id
+    ga4: "G-L07BJYTNDW"   // Google Analytics 4 measurement ID
     // ad pixels: add their loaders inside enable() the same way, so they too wait for consent
   };
 
@@ -311,14 +310,14 @@ footer nav a + a{margin-left:1.25rem}
   }
 
   // Declining applies retroactively: expire any analytics cookies an earlier visit
-  // left behind. GA and Clarity scope theirs to the registrable domain, so clear
+  // left behind. GA scopes theirs to the registrable domain, so clear
   // the dot-domain, bare-domain and host-only forms -- only the matching one bites.
   function forget(){
     var base = location.hostname.replace(/^www\./, "");
     var scopes = ["; domain=." + base, "; domain=" + base, ""];
     document.cookie.split("; ").forEach(function(pair){
       var name = pair.split("=")[0];
-      if (name !== "_ga" && name.indexOf("_ga_") !== 0 && name !== "_clck" && name !== "_clsk") return;
+      if (name !== "_ga" && name.indexOf("_ga_") !== 0) return;
       scopes.forEach(function(d){ document.cookie = name + "=; path=/; max-age=0" + d; });
     });
   }
@@ -339,13 +338,6 @@ footer nav a + a{margin-left:1.25rem}
       window.gtag = function(){ dataLayer.push(arguments); };
       gtag("js", new Date());
       gtag("config", CONSENT_CONFIG.ga4);
-    }
-    if (CONSENT_CONFIG.clarity){
-      (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-      })(window,document,"clarity","script",CONSENT_CONFIG.clarity);
     }
   }
 })();

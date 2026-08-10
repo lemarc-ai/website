@@ -293,10 +293,10 @@ footer nav a + a{margin-left:1.25rem}
 <h2 id="cookies">10. Cookies and the marketing site</h2>
 <p>There are two different surfaces here, and they behave differently.</p>
 <p><strong>The Lemarc application</strong> (the product you sign in to) uses one cookie, to keep you signed in. It carries no third-party analytics, no session recording, no advertising or tracking pixels, and no error-tracking service. What it holds about your use of the product is the operational data described in section 3, kept in our own database.</p>
-<p><strong>The lemarc.ai marketing site</strong> (the public pages, including this one) can use two analytics services: Google Analytics 4, to understand how people find and read the site, and Microsoft Clarity, for aggregate usage and heatmaps. Both run on the marketing pages only, never inside the product. We do not run advertising or retargeting pixels here.</p>
+<p><strong>The lemarc.ai marketing site</strong> (the public pages, including this one) can use one analytics service: Google Analytics 4, to understand how people find and read the site. It runs on the marketing pages only, never inside the product. We do not run advertising or retargeting pixels here.</p>
 <p>Nothing analytics-related loads before you choose. A banner asks once on your first visit:</p>
 <ul>
-  <li><strong>Accept</strong> loads Google Analytics 4 and Microsoft Clarity, which set their own cookies (<code>_ga</code>, <code>_ga_&lt;id&gt;</code>, <code>_clck</code>, <code>_clsk</code>).</li>
+  <li><strong>Accept</strong> loads Google Analytics 4, which sets its own cookies (<code>_ga</code>, <code>_ga_&lt;id&gt;</code>).</li>
   <li><strong>Decline</strong> loads neither, and expires any analytics cookies left on your browser from an earlier visit.</li>
 </ul>
 <p>Either way, we record your choice in a first-party cookie named <code>lemarc_consent</code> for one year so that we do not ask again. To change your mind, clear this site's cookies in your browser and the banner will return.</p>
@@ -335,7 +335,7 @@ footer nav a + a{margin-left:1.25rem}
 </footer>
 
 <!-- ============ COOKIE CONSENT (marketing site only) ============
-     Blocks GA, Clarity and any ad pixels until the visitor accepts.
+     Blocks GA and any ad pixels until the visitor accepts.
      Put your real IDs in CONSENT_CONFIG below. Nothing fires before consent.
      Choice is stored in a first-party cookie ("lemarc_consent"), localStorage as a
      fallback, so it asks once. Declining also clears analytics cookies already set. -->
@@ -376,8 +376,7 @@ footer nav a + a{margin-left:1.25rem}
 (function(){
   // ---- put your real IDs here ----
   var CONSENT_CONFIG = {
-    ga4: "G-L07BJYTNDW",   // Google Analytics 4 measurement ID
-    clarity: "xsedkoqb2d"  // Microsoft Clarity project id
+    ga4: "G-L07BJYTNDW"   // Google Analytics 4 measurement ID
     // ad pixels: add their loaders inside enable() the same way, so they too wait for consent
   };
 
@@ -401,14 +400,14 @@ footer nav a + a{margin-left:1.25rem}
   }
 
   // Declining applies retroactively: expire any analytics cookies an earlier visit
-  // left behind. GA and Clarity scope theirs to the registrable domain, so clear
+  // left behind. GA scopes theirs to the registrable domain, so clear
   // the dot-domain, bare-domain and host-only forms -- only the matching one bites.
   function forget(){
     var base = location.hostname.replace(/^www\./, "");
     var scopes = ["; domain=." + base, "; domain=" + base, ""];
     document.cookie.split("; ").forEach(function(pair){
       var name = pair.split("=")[0];
-      if (name !== "_ga" && name.indexOf("_ga_") !== 0 && name !== "_clck" && name !== "_clsk") return;
+      if (name !== "_ga" && name.indexOf("_ga_") !== 0) return;
       scopes.forEach(function(d){ document.cookie = name + "=; path=/; max-age=0" + d; });
     });
   }
@@ -429,13 +428,6 @@ footer nav a + a{margin-left:1.25rem}
       window.gtag = function(){ dataLayer.push(arguments); };
       gtag("js", new Date());
       gtag("config", CONSENT_CONFIG.ga4);
-    }
-    if (CONSENT_CONFIG.clarity){
-      (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-      })(window,document,"clarity","script",CONSENT_CONFIG.clarity);
     }
   }
 })();

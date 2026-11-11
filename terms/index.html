@@ -11,7 +11,8 @@
 <title>Terms of service | Lemarc</title>
 <meta name="description" content="The terms you agree to when you use Lemarc.">
 <link rel="canonical" href="https://www.lemarc.ai/terms">
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<!-- stealth: flip to index when we come out -->
+<meta name="robots" content="noindex, nofollow">
 <meta property="og:site_name" content="Lemarc">
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="website">
@@ -21,19 +22,20 @@
 <meta property="og:image" content="https://www.lemarc.ai/images/logo/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Lemarc. More you. Coming soon.">
+<meta property="og:image:alt" content="Lemarc. The marketing workspace for outnumbered marketers.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Terms of service | Lemarc">
 <meta name="twitter:description" content="The terms you agree to when you use Lemarc.">
 <meta name="twitter:image" content="https://www.lemarc.ai/images/logo/og-image.png">
-<meta name="twitter:image:alt" content="Lemarc. More you. Coming soon.">
+<meta name="twitter:image:alt" content="Lemarc. The marketing workspace for outnumbered marketers.">
 <link rel="icon" type="image/svg+xml" href="/images/logo/favicon.svg">
 <link rel="icon" href="/images/logo/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png">
 <meta name="theme-color" content="#6059FF">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/inter-tight-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css">
+<script src="/consent.js" defer></script>
 <style>
 :root{
   --paper:#E9E9E1;--raised:#F4F4EE;--ink:#16181A;--ink-2:#5C615E;
@@ -75,7 +77,8 @@ li{margin-top:0.5rem}
 
 .toc{margin-top:2.5rem;padding:0;list-style:none;
   font-family:"JetBrains Mono",monospace;font-size:0.8125rem;line-height:1.9}
-.toc a{text-decoration:none}
+.toc a{text-decoration:none;display:flex;align-items:center;min-height:44px}
+.toc li{margin-top:0}
 .toc a:hover{text-decoration:underline}
 
 .note{margin-top:1.5rem;padding-left:1.25rem;border-left:2px solid var(--brand);color:var(--ink-2)}
@@ -83,7 +86,14 @@ li{margin-top:0.5rem}
 footer{border-top:1px solid var(--edge);padding:2.5rem 0 3.5rem;font-size:0.875rem;color:var(--ink-2)}
 footer .wrap{display:flex;flex-wrap:wrap;gap:1.25rem;justify-content:space-between;align-items:center;max-width:64rem}
 footer nav a{color:var(--signal);text-decoration:none}
-footer nav a + a{margin-left:1.25rem}
+
+/* S-11: tap targets (44px), footer, shared */
+[hidden]{display:none !important}
+.mark,.head-link{min-height:44px;display:inline-flex;align-items:center}
+footer nav{display:flex;flex-wrap:wrap;column-gap:1.25rem}
+footer nav a,footer nav .linkish{display:inline-flex;align-items:center;min-height:44px}
+.linkish{font:inherit;color:var(--signal);background:none;border:0;padding:0;cursor:pointer}
+.linkish:hover{text-decoration:underline;text-underline-offset:3px}
 </style>
 </head>
 <body>
@@ -236,112 +246,16 @@ footer nav a + a{margin-left:1.25rem}
 <footer>
   <div class="wrap">
     <span>&copy; 2026 Lemarc</span>
-    <nav>
+    <nav aria-label="Footer">
       <a href="/privacy">Privacy</a>
       <a href="/terms">Terms</a>
+      <a href="/accessibility">Accessibility</a>
+      <button type="button" class="linkish" data-cookie-settings>Cookie settings</button>
       <a href="mailto:support@lemarc.ai">support@lemarc.ai</a>
     </nav>
   </div>
 </footer>
 
-<!-- ============ COOKIE CONSENT (marketing site only) ============
-     Blocks GA and any ad pixels until the visitor accepts.
-     Put your real IDs in CONSENT_CONFIG below. Nothing fires before consent.
-     Choice is stored in a first-party cookie ("lemarc_consent"), localStorage as a
-     fallback, so it asks once. Declining also clears analytics cookies already set. -->
-<div id="cc" hidden>
-  <div class="cc-card" role="dialog" aria-live="polite" aria-label="Cookie notice">
-    <p class="cc-text">We use cookies to see how people find and read this site. Analytics only, and only if you say yes. <a href="/privacy#cookies">How we use them.</a></p>
-    <div class="cc-actions">
-      <button class="cc-btn cc-ghost" id="ccNo" type="button">Decline</button>
-      <button class="cc-btn" id="ccYes" type="button">Accept</button>
-    </div>
-  </div>
-</div>
-
-<style>
-[hidden]{display:none !important}
-#cc{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;justify-content:center;padding:var(--pad)}
-.cc-card{
-  background:var(--ink);color:var(--paper);border-radius:8px;
-  max-width:44rem;width:100%;padding:1.125rem 1.25rem;
-  display:flex;flex-wrap:wrap;align-items:center;gap:0.875rem 1.5rem;
-  box-shadow:0 8px 40px rgba(0,0,0,.28);
-}
-.cc-text{margin:0;flex:1 1 20rem;font-size:0.9375rem;line-height:1.5;color:var(--paper)}
-.cc-text a{color:var(--signal-soft);text-underline-offset:3px}
-.cc-actions{display:flex;gap:0.625rem;flex:0 0 auto}
-.cc-btn{
-  font-family:inherit;font-size:0.9375rem;font-weight:500;cursor:pointer;
-  padding:0.55rem 1.125rem;border-radius:5px;border:0;
-  background:var(--signal);color:var(--paper);
-}
-.cc-btn:hover{background:#4038CC}
-.cc-ghost{background:transparent;color:var(--paper);border:1px solid rgba(233,233,225,.35)}
-.cc-ghost:hover{background:rgba(233,233,225,.1)}
-@media(max-width:32rem){.cc-actions{flex:1 1 100%}.cc-btn{flex:1}}
-</style>
-
-<script>
-(function(){
-  // ---- put your real IDs here ----
-  var CONSENT_CONFIG = {
-    ga4: "G-L07BJYTNDW"   // Google Analytics 4 measurement ID
-    // ad pixels: add their loaders inside enable() the same way, so they too wait for consent
-  };
-
-  var KEY = "lemarc_consent";
-  var el = document.getElementById("cc");
-  var saved = read();
-
-  if (saved === "yes") { enable(); }
-  else if (saved === "no") { forget(); }
-  else { el.hidden = false; }
-
-  document.getElementById("ccYes").onclick = function(){ set("yes"); enable(); };
-  document.getElementById("ccNo").onclick  = function(){ set("no"); forget(); };
-
-  function set(v){
-    // Scope to the exact host (no domain attr) so it is consistent across every
-    // page on www.lemarc.ai, for a year. localStorage as a fallback.
-    document.cookie = KEY + "=" + v + "; path=/; max-age=31536000; samesite=lax";
-    try { localStorage.setItem(KEY, v); } catch(e){}
-    el.hidden = true;
-  }
-
-  // Declining applies retroactively: expire any analytics cookies an earlier visit
-  // left behind. GA scopes theirs to the registrable domain, so clear
-  // the dot-domain, bare-domain and host-only forms -- only the matching one bites.
-  function forget(){
-    var base = location.hostname.replace(/^www\./, "");
-    var scopes = ["; domain=." + base, "; domain=" + base, ""];
-    document.cookie.split("; ").forEach(function(pair){
-      var name = pair.split("=")[0];
-      if (name !== "_ga" && name.indexOf("_ga_") !== 0) return;
-      scopes.forEach(function(d){ document.cookie = name + "=; path=/; max-age=0" + d; });
-    });
-  }
-
-  function read(){
-    var m = document.cookie.match(/(?:^|; )lemarc_consent=([^;]+)/);
-    if (m) return m[1];
-    try { return localStorage.getItem(KEY); } catch(e){ return null; }
-  }
-
-  function enable(){
-    if (CONSENT_CONFIG.ga4){
-      var s = document.createElement("script");
-      s.async = true;
-      s.src = "https://www.googletagmanager.com/gtag/js?id=" + CONSENT_CONFIG.ga4;
-      document.head.appendChild(s);
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function(){ dataLayer.push(arguments); };
-      gtag("js", new Date());
-      gtag("config", CONSENT_CONFIG.ga4);
-    }
-  }
-})();
-</script>
 
 </body>
 </html>

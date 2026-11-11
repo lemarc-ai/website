@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <!--
   LEMARC HOMEPAGE
-  Two things to set before this goes live:
-    1. FORM_ENDPOINT in the <script> at the bottom (Formspree, Tally, or your own API route).
-    2. The contact email in the footer (currently support@lemarc.ai).
+  IDs to fill before this goes live (blank = off):
+    1. HUBSPOT in the <script> at the bottom (portalId, formGuid, field internal names).
+       The form posts to the HubSpot Forms API; no HubSpot script or cookie on the page.
+    2. Tag IDs in /consent.js (CONSENT_CONFIG). Shared by every page.
   Privacy and Terms are linked at /privacy and /terms. Those URLs get locked into the
   Google OAuth consent screen, so don't move them once you file.
 -->
@@ -14,7 +15,8 @@
 <title>Lemarc | Marketing operations for lean B2B teams</title>
 <meta name="description" content="Lemarc holds the marketing operation for small B2B teams: see spend, track what's working, and produce drafts in your voice. Early access is open.">
 <link rel="canonical" href="https://www.lemarc.ai/">
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<!-- stealth: flip to index when we come out -->
+<meta name="robots" content="noindex, nofollow">
 <meta property="og:site_name" content="Lemarc">
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="website">
@@ -24,12 +26,12 @@
 <meta property="og:image" content="https://www.lemarc.ai/images/logo/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Lemarc. More you. Coming soon.">
+<meta property="og:image:alt" content="Lemarc. The marketing workspace for outnumbered marketers.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Lemarc: the marketing workspace for outnumbered marketers">
 <meta name="twitter:description" content="Lemarc holds the marketing operation for small B2B teams: see spend, track what's working, and produce drafts in your voice. Early access is open.">
 <meta name="twitter:image" content="https://www.lemarc.ai/images/logo/og-image.png">
-<meta name="twitter:image:alt" content="Lemarc. More you. Coming soon.">
+<meta name="twitter:image:alt" content="Lemarc. The marketing workspace for outnumbered marketers.">
 <link rel="icon" type="image/svg+xml" href="/images/logo/favicon.svg">
 <link rel="icon" href="/images/logo/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png">
@@ -37,9 +39,10 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Lemarc","url":"https://www.lemarc.ai/","logo":"https://www.lemarc.ai/images/logo/icon-512.png","description":"The marketing workspace for outnumbered marketers.","sameAs":["https://www.linkedin.com/company/lemarcai/"]}
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/inter-tight-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css">
+<script src="/consent.js" defer></script>
 <style>
 :root{
   --paper:#E9E9E1;
@@ -177,9 +180,14 @@ input{
   background:var(--paper);border:1px solid var(--edge);border-radius:4px;
   padding:0.7rem 0.875rem;width:100%;
 }
-input:focus{border-color:var(--signal);outline:none;box-shadow:0 0 0 3px var(--signal-soft)}
+input:focus{border-color:var(--signal);outline:2px solid var(--signal);outline-offset:2px}
+input[aria-invalid="true"]{border-color:#8C2118}
+.err{font-size:0.875rem;color:#8C2118}
+.name-row{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
+.fine-print{font-size:0.875rem;color:var(--ink-2)}
+p a,.done a{text-decoration:underline}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.opt{display:flex;align-items:flex-start;gap:0.625rem;font-size:0.9375rem;font-weight:400;cursor:pointer}
+.opt{display:flex;align-items:flex-start;gap:0.625rem;font-size:0.9375rem;font-weight:400;cursor:pointer;min-height:44px;padding-block:0.625rem}
 .opt input{width:1.05rem;height:1.05rem;margin:0.22rem 0 0;flex:none;accent-color:var(--signal);cursor:pointer}
 .opt span{color:var(--ink-2)}
 .status{font-size:0.9375rem;min-height:1.4em}
@@ -194,7 +202,14 @@ input:focus{border-color:var(--signal);outline:none;box-shadow:0 0 0 3px var(--s
 /* ---------- footer ---------- */
 footer{border-top:1px solid var(--edge);padding:2.5rem 0 3.5rem;font-size:0.875rem;color:var(--ink-2)}
 footer .wrap{display:flex;flex-wrap:wrap;gap:1.25rem;justify-content:space-between;align-items:center}
-footer nav a + a{margin-left:1.25rem}
+
+/* S-11: tap targets (44px), footer, shared */
+[hidden]{display:none !important}
+.mark,.head-link{min-height:44px;display:inline-flex;align-items:center}
+footer nav{display:flex;flex-wrap:wrap;column-gap:1.25rem}
+footer nav a,footer nav .linkish{display:inline-flex;align-items:center;min-height:44px}
+.linkish{font:inherit;color:var(--signal);background:none;border:0;padding:0;cursor:pointer}
+.linkish:hover{text-decoration:underline;text-underline-offset:3px}
 </style>
 </head>
 <body>
@@ -319,7 +334,7 @@ footer nav a + a{margin-left:1.25rem}
         <div>
           <p class="eyebrow">Early bird access</p>
           <h2>All this, and we haven't met.</h2>
-          <p class="lede">Three fields and we'll take it from there. We set up every early team ourselves, so the first thing you get is a conversation, not a docs page.</p>
+          <p class="lede">Four fields and we'll take it from there. We set up every early team ourselves, so the first thing you get is a conversation, not a docs page.</p>
         </div>
 
         <div>
@@ -328,28 +343,39 @@ footer nav a + a{margin-left:1.25rem}
               <label for="company">Company</label>
               <input id="company" name="company" type="text" tabindex="-1" autocomplete="off">
             </div>
-            <div class="field">
-              <label for="name">Name</label>
-              <input id="name" name="name" type="text" autocomplete="name" required>
+            <div class="name-row">
+              <div class="field">
+                <label for="firstname">First name</label>
+                <input id="firstname" name="firstname" type="text" autocomplete="given-name" required aria-describedby="firstname-err">
+                <p class="err" id="firstname-err" hidden></p>
+              </div>
+              <div class="field">
+                <label for="lastname">Last name</label>
+                <input id="lastname" name="lastname" type="text" autocomplete="family-name" required aria-describedby="lastname-err">
+                <p class="err" id="lastname-err" hidden></p>
+              </div>
             </div>
             <div class="field">
               <label for="email">Work email</label>
-              <input id="email" name="email" type="email" autocomplete="email" required>
+              <input id="email" name="email" type="email" autocomplete="email" required aria-describedby="email-err">
+              <p class="err" id="email-err" hidden></p>
             </div>
             <div class="field">
               <label for="linkedin">LinkedIn <span>(profile or company page)</span></label>
-              <input id="linkedin" name="linkedin" type="url" placeholder="https://linkedin.com/in/..." required>
+              <input id="linkedin" name="linkedin" type="url" placeholder="https://linkedin.com/in/..." required aria-describedby="linkedin-err">
+              <p class="err" id="linkedin-err" hidden></p>
             </div>
             <button class="btn" type="submit" id="submitBtn">Apply for access</button>
             <p class="status" id="status" role="status" aria-live="polite"></p>
             <label class="opt">
               <input type="checkbox" id="news" name="news">
-              <span>Send me the occasional note on what we're building. Nothing else, ever.</span>
+              <span id="newsText">Send me the occasional note on what we're building. Nothing else, ever.</span>
             </label>
+            <p class="fine-print"><span id="processText">By applying, you agree that we store and use these details to review your application.</span> See the <a href="/privacy#applicants">privacy policy</a>.</p>
           </form>
 
           <div class="done" id="done" hidden>
-            <h3>Got it.</h3>
+            <h3 id="doneTitle" tabindex="-1">Got it.</h3>
             <p>We'll come back to you from a lemarc.ai address, usually within a week.</p>
           </div>
         </div>
@@ -362,165 +388,119 @@ footer nav a + a{margin-left:1.25rem}
 <footer>
   <div class="wrap">
     <span>&copy; 2026 Lemarc</span>
-    <nav>
+    <nav aria-label="Footer">
       <a href="/privacy">Privacy</a>
       <a href="/terms">Terms</a>
+      <a href="/accessibility">Accessibility</a>
+      <button type="button" class="linkish" data-cookie-settings>Cookie settings</button>
       <a href="mailto:support@lemarc.ai">support@lemarc.ai</a>
     </nav>
   </div>
 </footer>
 
 <script>
-// Set this to your form endpoint (Formspree, Tally, or your own API route).
-const FORM_ENDPOINT = "https://formspree.io/f/xeeypbkk";
+// HubSpot Forms API (our own form, no HubSpot script or cookie). Blank portalId/formGuid
+// = the form says it isn't wired up. Blank field name = that field is not sent.
+// The portal is in HubSpot's EU data centre, so the EU host. The newsletter box is the
+// form's marketing-consent checkbox (subscription type below); processing consent is implicit
+// and records the line shown under the form.
+const HUBSPOT = {
+  host: "https://api-eu1.hsforms.com",
+  portalId: "149108045",
+  formGuid: "f156ce9d-7bab-4aeb-b8c6-0525d0cb4f2f",
+  marketingSubscriptionTypeId: 3383905544,
+  fields: { firstname: "firstname", lastname: "lastname", email: "email", linkedin: "hs_linkedin_url" }
+};
 
-const form = document.getElementById("applyForm");
-const btn = document.getElementById("submitBtn");
-const status = document.getElementById("status");
-const done = document.getElementById("done");
+const $ = (id) => document.getElementById(id);
+const form = $("applyForm"), btn = $("submitBtn"), status = $("status"), done = $("done");
+const GENERIC = "That didn't go through. Try again, or email support@lemarc.ai.";
 
-function fail(msg){
+function setStatus(msg, bad){
   status.textContent = msg;
-  status.dataset.tone = "bad";
+  if(bad){ status.dataset.tone = "bad"; } else { delete status.dataset.tone; }
+}
+
+function fieldError(id, msg){
+  const input = $(id), err = $(id + "-err");
+  err.textContent = msg || "";
+  err.hidden = !msg;
+  if(msg){ input.setAttribute("aria-invalid", "true"); } else { input.removeAttribute("aria-invalid"); }
 }
 
 form.addEventListener("submit", async function(e){
   e.preventDefault();
-  status.textContent = "";
-  delete status.dataset.tone;
+  setStatus("");
 
-  if(form.company.value){ form.hidden = true; done.hidden = false; return; }
+  if($("company").value){ form.hidden = true; done.hidden = false; return; }
 
   const data = {
-    name: form.name.value.trim(),
-    email: form.email.value.trim(),
-    linkedin: form.linkedin.value.trim(),
-    newsletter: form.news.checked
+    firstname: $("firstname").value.trim(),
+    lastname: $("lastname").value.trim(),
+    email: $("email").value.trim(),
+    linkedin: $("linkedin").value.trim(),
+    newsletter: $("news").checked
   };
 
-  if(!data.name){ return fail("Add your name so we know who we're talking to."); }
-  if(!/^\S+@\S+\.\S+$/.test(data.email)){ return fail("That email address doesn't look right."); }
-  if(!/linkedin\.com\//i.test(data.linkedin)){ return fail("Paste a full LinkedIn URL, starting with https://"); }
+  const errors = {
+    firstname: data.firstname ? "" : "Add your first name.",
+    lastname: data.lastname ? "" : "Add your last name.",
+    email: /^\S+@\S+\.\S+$/.test(data.email) ? "" : "That email address doesn't look right.",
+    linkedin: /linkedin\.com\//i.test(data.linkedin) ? "" : "Paste a full LinkedIn URL, starting with https://"
+  };
+  Object.keys(errors).forEach((k) => fieldError(k, errors[k]));
+  const firstBad = Object.keys(errors).find((k) => errors[k]);
+  if(firstBad){ $(firstBad).focus(); return; }
 
-  if(!FORM_ENDPOINT){
-    return fail("The form isn't wired up yet. Email support@lemarc.ai and we'll pick it up there.");
+  if(!HUBSPOT.portalId || !HUBSPOT.formGuid){
+    return setStatus("The form isn't wired up yet. Email support@lemarc.ai and we'll pick it up there.", true);
   }
+
+  const fields = [];
+  Object.keys(HUBSPOT.fields).forEach((k) => {
+    const name = HUBSPOT.fields[k];
+    if(name){ fields.push({ name, value: data[k] }); }
+  });
+  const legalConsentOptions = { consent: {
+    consentToProcess: true,
+    text: $("processText").textContent,
+    communications: [{ value: data.newsletter, subscriptionTypeId: HUBSPOT.marketingSubscriptionTypeId, text: $("newsText").textContent }]
+  } };
 
   btn.disabled = true;
-  status.textContent = "Sending.";
+  setStatus("Sending.");
 
   try{
-    const res = await fetch(FORM_ENDPOINT, {
+    const url = HUBSPOT.host + "/submissions/v3/integration/submit/" +
+      encodeURIComponent(HUBSPOT.portalId) + "/" + encodeURIComponent(HUBSPOT.formGuid);
+    const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json", "Accept": "application/json" },
-      body: JSON.stringify(data)
+      body: JSON.stringify({ fields, legalConsentOptions, context: { pageUri: location.href, pageName: document.title } })
     });
-    if(!res.ok){ throw new Error(res.status); }
+    if(!res.ok){
+      let body = null;
+      try{ body = await res.json(); }catch(_){}
+      const errs = (body && body.errors) || [];
+      btn.disabled = false;
+      if(errs.some((x) => x.errorType === "INVALID_EMAIL")){
+        setStatus("");
+        fieldError("email", "That email address doesn't look right.");
+        $("email").focus();
+        return;
+      }
+      return setStatus(GENERIC, true);
+    }
     form.hidden = true;
     done.hidden = false;
+    $("doneTitle").focus();
     done.scrollIntoView({ behavior: "smooth", block: "center" });
+    try{ window.lemarcConsent && window.lemarcConsent.lead(); }catch(_){}
   }catch(err){
     btn.disabled = false;
-    fail("That didn't go through. Try again, or email support@lemarc.ai.");
+    setStatus(GENERIC, true);
   }
 });
-</script>
-<!-- ============ COOKIE CONSENT (marketing site only) ============
-     Blocks GA and any ad pixels until the visitor accepts.
-     Put your real IDs in CONSENT_CONFIG below. Nothing fires before consent.
-     Choice is stored in a first-party cookie ("lemarc_consent"), localStorage as a
-     fallback, so it asks once. Declining also clears analytics cookies already set. -->
-<div id="cc" hidden>
-  <div class="cc-card" role="dialog" aria-live="polite" aria-label="Cookie notice">
-    <p class="cc-text">We use cookies to see how people find and read this site. Analytics only, and only if you say yes. <a href="/privacy#cookies">How we use them.</a></p>
-    <div class="cc-actions">
-      <button class="cc-btn cc-ghost" id="ccNo" type="button">Decline</button>
-      <button class="cc-btn" id="ccYes" type="button">Accept</button>
-    </div>
-  </div>
-</div>
-
-<style>
-#cc{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;justify-content:center;padding:var(--pad)}
-.cc-card{
-  background:var(--ink);color:var(--paper);border-radius:8px;
-  max-width:44rem;width:100%;padding:1.125rem 1.25rem;
-  display:flex;flex-wrap:wrap;align-items:center;gap:0.875rem 1.5rem;
-  box-shadow:0 8px 40px rgba(0,0,0,.28);
-}
-.cc-text{margin:0;flex:1 1 20rem;font-size:0.9375rem;line-height:1.5;color:var(--paper)}
-.cc-text a{color:var(--signal-soft);text-underline-offset:3px}
-.cc-actions{display:flex;gap:0.625rem;flex:0 0 auto}
-.cc-btn{
-  font-family:inherit;font-size:0.9375rem;font-weight:500;cursor:pointer;
-  padding:0.55rem 1.125rem;border-radius:5px;border:0;
-  background:var(--signal);color:var(--paper);
-}
-.cc-btn:hover{background:#4038CC}
-.cc-ghost{background:transparent;color:var(--paper);border:1px solid rgba(233,233,225,.35)}
-.cc-ghost:hover{background:rgba(233,233,225,.1)}
-@media(max-width:32rem){.cc-actions{flex:1 1 100%}.cc-btn{flex:1}}
-</style>
-
-<script>
-(function(){
-  // ---- put your real IDs here ----
-  var CONSENT_CONFIG = {
-    ga4: "G-L07BJYTNDW"   // Google Analytics 4 measurement ID
-    // ad pixels: add their loaders inside enable() the same way, so they too wait for consent
-  };
-
-  var KEY = "lemarc_consent";
-  var el = document.getElementById("cc");
-  var saved = read();
-
-  if (saved === "yes") { enable(); }
-  else if (saved === "no") { forget(); }
-  else { el.hidden = false; }
-
-  document.getElementById("ccYes").onclick = function(){ set("yes"); enable(); };
-  document.getElementById("ccNo").onclick  = function(){ set("no"); forget(); };
-
-  function set(v){
-    // Scope to the exact host (no domain attr) so it is consistent across every
-    // page on www.lemarc.ai, for a year. localStorage as a fallback.
-    document.cookie = KEY + "=" + v + "; path=/; max-age=31536000; samesite=lax";
-    try { localStorage.setItem(KEY, v); } catch(e){}
-    el.hidden = true;
-  }
-
-  // Declining applies retroactively: expire any analytics cookies an earlier visit
-  // left behind. GA scopes theirs to the registrable domain, so clear
-  // the dot-domain, bare-domain and host-only forms -- only the matching one bites.
-  function forget(){
-    var base = location.hostname.replace(/^www\./, "");
-    var scopes = ["; domain=." + base, "; domain=" + base, ""];
-    document.cookie.split("; ").forEach(function(pair){
-      var name = pair.split("=")[0];
-      if (name !== "_ga" && name.indexOf("_ga_") !== 0) return;
-      scopes.forEach(function(d){ document.cookie = name + "=; path=/; max-age=0" + d; });
-    });
-  }
-
-  function read(){
-    var m = document.cookie.match(/(?:^|; )lemarc_consent=([^;]+)/);
-    if (m) return m[1];
-    try { return localStorage.getItem(KEY); } catch(e){ return null; }
-  }
-
-  function enable(){
-    if (CONSENT_CONFIG.ga4){
-      var s = document.createElement("script");
-      s.async = true;
-      s.src = "https://www.googletagmanager.com/gtag/js?id=" + CONSENT_CONFIG.ga4;
-      document.head.appendChild(s);
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function(){ dataLayer.push(arguments); };
-      gtag("js", new Date());
-      gtag("config", CONSENT_CONFIG.ga4);
-    }
-  }
-})();
 </script>
 
 </body>

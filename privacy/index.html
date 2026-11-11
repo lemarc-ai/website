@@ -11,7 +11,8 @@
 <title>Privacy policy | Lemarc</title>
 <meta name="description" content="What data Lemarc handles, where it comes from, and what we do and do not do with it.">
 <link rel="canonical" href="https://www.lemarc.ai/privacy">
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<!-- stealth: flip to index when we come out -->
+<meta name="robots" content="noindex, nofollow">
 <meta property="og:site_name" content="Lemarc">
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="website">
@@ -21,19 +22,20 @@
 <meta property="og:image" content="https://www.lemarc.ai/images/logo/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Lemarc. More you. Coming soon.">
+<meta property="og:image:alt" content="Lemarc. The marketing workspace for outnumbered marketers.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Privacy policy | Lemarc">
 <meta name="twitter:description" content="What data Lemarc handles, where it comes from, and what we do and do not do with it.">
 <meta name="twitter:image" content="https://www.lemarc.ai/images/logo/og-image.png">
-<meta name="twitter:image:alt" content="Lemarc. More you. Coming soon.">
+<meta name="twitter:image:alt" content="Lemarc. The marketing workspace for outnumbered marketers.">
 <link rel="icon" type="image/svg+xml" href="/images/logo/favicon.svg">
 <link rel="icon" href="/images/logo/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png">
 <meta name="theme-color" content="#6059FF">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/inter-tight-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css">
+<script src="/consent.js" defer></script>
 <style>
 :root{
   --paper:#E9E9E1;--raised:#F4F4EE;--ink:#16181A;--ink-2:#5C615E;
@@ -77,21 +79,29 @@ code{font-family:"JetBrains Mono",monospace;font-size:0.8125em;background:var(--
 
 .toc{margin-top:2.5rem;padding:0;list-style:none;
   font-family:"JetBrains Mono",monospace;font-size:0.8125rem;line-height:1.9}
-.toc a{text-decoration:none}
+.toc a{text-decoration:none;display:flex;align-items:center;min-height:44px}
+.toc li{margin-top:0}
 .toc a:hover{text-decoration:underline}
 
 .tbl{width:100%;border-collapse:collapse;margin-top:1.25rem;font-size:0.9375rem;display:block;overflow-x:auto}
 .tbl th,.tbl td{text-align:left;vertical-align:top;padding:0.75rem 0.875rem;border-bottom:1px solid var(--edge)}
 .tbl th{font-family:"JetBrains Mono",monospace;font-size:0.6875rem;letter-spacing:0.1em;
   text-transform:uppercase;color:var(--ink-2);font-weight:400;white-space:nowrap}
-.tbl td:first-child{white-space:nowrap;font-weight:500}
+.tbl td:first-child{font-weight:500;min-width:8.5rem}
 
 .note{margin-top:1.5rem;padding-left:1.25rem;border-left:2px solid var(--brand);color:var(--ink-2)}
 
 footer{border-top:1px solid var(--edge);padding:2.5rem 0 3.5rem;font-size:0.875rem;color:var(--ink-2)}
 footer .wrap{display:flex;flex-wrap:wrap;gap:1.25rem;justify-content:space-between;align-items:center;max-width:64rem}
 footer nav a{color:var(--signal);text-decoration:none}
-footer nav a + a{margin-left:1.25rem}
+
+/* S-11: tap targets (44px), footer, shared */
+[hidden]{display:none !important}
+.mark,.head-link{min-height:44px;display:inline-flex;align-items:center}
+footer nav{display:flex;flex-wrap:wrap;column-gap:1.25rem}
+footer nav a,footer nav .linkish{display:inline-flex;align-items:center;min-height:44px}
+.linkish{font:inherit;color:var(--signal);background:none;border:0;padding:0;cursor:pointer}
+.linkish:hover{text-decoration:underline;text-underline-offset:3px}
 </style>
 </head>
 <body>
@@ -107,216 +117,141 @@ footer nav a + a{margin-left:1.25rem}
 <div class="wrap">
 
 <h1>Privacy policy</h1>
-<p class="stamp">Last updated 29 July 2026</p>
+<p class="stamp">Last updated 6 November 2026</p>
 
-<p class="intro">Lemarc is a marketing workspace. This policy explains what data Lemarc handles, where it comes from, what we do with it, and what we do not do with it. It is written to be read, not to be survived.</p>
-
-<div class="summary">
-  <h2>The short version</h2>
-  <ul>
-    <li>From the platforms you connect, Lemarc stores performance and spend numbers. It does not store names, email addresses, or anything else that identifies a person.</li>
-    <li>CRM contacts and companies are hashed before they are written. Those tables have no name, email, phone or address column at all.</li>
-    <li>Lemarc holds your login email and the access tokens for the accounts you connect. It needs both to work.</li>
-    <li>Inside the product, four third parties receive data: our AI model provider, an image-generation provider, a page-reading service, and our database host. The public marketing site uses standard analytics, which is separate.</li>
-    <li>We do not sell your data, and we do not share it for advertising.</li>
-  </ul>
-</div>
+<p class="intro">This policy explains what data Lemarc collects, why, who receives it, how long we keep it, and the choices you have.</p>
 
 <ul class="toc">
   <li><a href="#who">1. Who we are</a></li>
-  <li><a href="#connected">2. Data from platforms you connect</a></li>
-  <li><a href="#account">3. Data about you as an account holder</a></li>
-  <li><a href="#applicants">4. Data from early access applicants</a></li>
-  <li><a href="#third-parties">5. Third parties (our processors)</a></li>
-  <li><a href="#data-deletion">6. Deleting your data</a></li>
-  <li><a href="#retention">7. How long we keep things</a></li>
-  <li><a href="#security">8. Security</a></li>
-  <li><a href="#rights">9. Your rights</a></li>
-  <li><a href="#cookies">10. Cookies</a></li>
-  <li><a href="#transfers">11. Where data is stored</a></li>
-  <li><a href="#children">12. Children</a></li>
-  <li><a href="#changes">13. Changes to this policy</a></li>
-  <li><a href="#contact">14. Contact</a></li>
+  <li><a href="#connected">2. What we collect</a></li>
+  <li><a href="#use">3. How we use it</a></li>
+  <li><a href="#third-parties">4. Who receives it</a></li>
+  <li><a href="#clip">5. Clip to Lemarc (browser extension)</a></li>
+  <li><a href="#data-deletion">6. Keeping and deleting data</a></li>
+  <li><a href="#security">7. Security</a></li>
+  <li><a href="#rights">8. Your rights</a></li>
+  <li><a href="#cookies">9. Cookies</a></li>
+  <li><a href="#transfers">10. Where data is stored</a></li>
+  <li><a href="#children">11. Children</a></li>
+  <li><a href="#changes">12. Changes to this policy</a></li>
+  <li><a href="#contact">13. Contact</a></li>
 </ul>
 
 
 <h2 id="who">1. Who we are</h2>
-<p>Lemarc ("we", "us", "our") provides an AI-powered marketing workspace that helps businesses analyze and manage their marketing operations. Lemarc is operated by Matan Buganim, based in Israel.</p>
+<p>Lemarc ("we", "us", "our") is a marketing workspace for businesses. Lemarc is operated by Matan Buganim, based in Israel, who is the controller of the personal data described here except where section 4 says otherwise.</p>
 <p>For anything in this policy, write to <a href="mailto:support@lemarc.ai">support@lemarc.ai</a>.</p>
-<p>Lemarc is currently a single-tenant product: one account, one workspace. There is no shared multi-user access and no cross-customer data.</p>
 
 
-<h2 id="connected">2. Data from platforms you connect</h2>
+<h2 id="connected">2. What we collect</h2>
 
-<p>Lemarc is useless without your marketing data, so you connect the accounts you already use. You choose which ones. You can skip any of them and disconnect any of them.</p>
+<h3 id="account">2.1 Your account</h3>
+<p>Your login email address, the access credentials for the accounts you connect, the material you add to your workspace, and records of how the service ran for you.</p>
 
-<h3>2.1 What we ask for, and why</h3>
+<h3>2.2 Accounts you connect</h3>
+<p>You choose which accounts to connect, and you can skip or disconnect any of them. Reading and acting are separate permissions: Lemarc publishes content or creates ads only in accounts you connect for that, and only for what you approve. Ads it creates stay switched off until you launch them.</p>
 
 <table class="tbl">
-  <thead><tr><th>Platform</th><th>Permission</th><th>What it lets Lemarc do</th></tr></thead>
+  <thead><tr><th>Account</th><th>What Lemarc receives</th></tr></thead>
   <tbody>
     <tr>
-      <td>Google Analytics</td>
-      <td><code>analytics.readonly</code></td>
-      <td>Read traffic, conversion and channel reports for the properties you select. Read only.</td>
-    </tr>
-    <tr>
-      <td>Google Ads</td>
-      <td><code>adwords</code></td>
-      <td>Read campaign structure, spend and performance. Google issues one permission covering both reading and writing. Lemarc uses it read only. It does not create, edit, pause or delete campaigns, and it does not change budgets.</td>
+      <td>Google</td>
+      <td>Your email address; analytics and search performance reports for sites you select; ad campaign, spend and performance data; events from calendars you choose. Read only.</td>
     </tr>
     <tr>
       <td>Meta</td>
-      <td><code>ads_read</code></td>
-      <td>Read campaign structure, spend and performance for the ad accounts you select.</td>
+      <td>Ad campaign, spend, performance and audience data for ad accounts you select. If you connect a Page for publishing: the Page and linked Instagram account, their posts and engagement, and permission to publish posts you approve.</td>
     </tr>
     <tr>
       <td>LinkedIn</td>
-      <td><code>openid</code>, <code>profile</code>, <code>email</code>, <code>r_organization_social</code>, <code>r_ads</code>, <code>r_ads_reporting</code></td>
-      <td>Identify you when you connect, read the content of company pages you administer, and read ad accounts and their reporting.</td>
+      <td>Your name and email address; content of company pages you administer; ad accounts and reporting. If you connect them: permission to post what you approve as you, and to create the ads you send.</td>
     </tr>
     <tr>
       <td>HubSpot</td>
-      <td><code>oauth</code>, <code>crm.objects.contacts.read</code>, <code>crm.objects.companies.read</code>, <code>crm.objects.deals.read</code>, <code>crm.schemas.deals.read</code></td>
-      <td>Read contacts, companies and deals so that Lemarc can work out which marketing produced which outcomes.</td>
+      <td>Contacts, companies, deals and marketing results. Contacts are stored pseudonymized, without their names, email addresses or phone numbers. With your approval, permission to create content and email drafts. Lemarc never sends email from HubSpot.</td>
+    </tr>
+    <tr>
+      <td>Slack</td>
+      <td>Your Slack identity and workspace member details, used to deliver messages to you and receive messages from your team.</td>
+    </tr>
+    <tr>
+      <td>Other ad and publishing accounts</td>
+      <td>What you authorize when you connect them, used to read results and publish or create what you approve.</td>
     </tr>
   </tbody>
 </table>
 
-<p>Every one of these is a read permission in practice. Lemarc does not post, publish, comment or advertise on your behalf on any of these platforms.</p>
+<h3 id="applicants">2.3 Visitors and applicants</h3>
+<p>If you apply for early access on lemarc.ai, we collect your name, work email, LinkedIn URL and, if you tick the box, your consent to hear from us. If you ask for access inside the app, we collect your email address and, optionally, your name, company and website. Cookies on lemarc.ai are covered in section 9.</p>
 
-<h3>2.2 What we store</h3>
+
+<h2 id="use">3. How we use it</h2>
 <ul>
-  <li><strong>Performance and spend.</strong> Impressions, clicks, sessions, conversions and cost, by date and by campaign or channel.</li>
-  <li><strong>A pseudonymized view of CRM outcomes.</strong> Each contact is stored as a keyed hash (HMAC-SHA256) of an identifier. Each company is stored as a keyed hash of its name. Alongside those we keep deal stages, amounts, dates and outcomes.</li>
-  <li><strong>A channel category</strong> for each paid touch, such as <code>google-ads</code>, <code>linkedin</code> or <code>meta</code>.</li>
+  <li><strong>To provide the service you signed up for</strong> (performance of our contract with you): analyzing your marketing, recommending next steps, producing material, and publishing or sending it where you tell us to.</li>
+  <li><strong>To keep the service secure and working</strong> (our legitimate interests).</li>
+  <li><strong>To review early access applications and reply</strong> (steps you asked us to take before a contract), and to send occasional updates if you opted in (your consent, which you can withdraw through the unsubscribe link in every message).</li>
+  <li><strong>Site analytics and advertising</strong> (your consent, see section 9).</li>
+  <li><strong>To meet legal obligations.</strong></li>
 </ul>
-<p>The hashing happens before anything is written to the database, and it is fail-closed: if the hashing key is unavailable, the record is not written at all rather than written in the clear.</p>
-
-<h3>2.3 What we do not store</h3>
-<ul>
-  <li>Names, email addresses, phone numbers or postal addresses from any connected platform.</li>
-  <li>Advertising click identifiers such as <code>gclid</code>, <code>fbclid</code> and <code>li_fat_id</code>. These are read in memory only, long enough to work out which channel a touch came from, and then discarded.</li>
-  <li>First-touch URLs or referrer URLs.</li>
-  <li>Call transcripts, email bodies, notes, or any other free-text CRM content.</li>
-</ul>
-<p>If a record fails to import, we log enough to debug the failure. Names, email addresses, click identifiers and property values are stripped before that log is written.</p>
-
-<h3>2.4 What we do with it</h3>
-<p>We use this data to show you how your marketing is performing, to work out what to recommend next, and to produce marketing material for you.</p>
-<p>Lemarc uses an AI model provider to do some of that work. CRM data reaches the model only as aggregates: sums, counts, win rates, cycle times, grouped by channel. A single function is the only route from CRM data into a model prompt, and it returns totals. No individual record, no hash and no identifier is ever placed in a prompt.</p>
-<p>We do not sell this data. We do not share it for advertising. We do not use it to build products for anyone other than you.</p>
-<p><strong>Model training.</strong> Your data is not used to train AI models, ours or anyone else's. We send data to our model provider only to generate results for you in the moment, and our agreement with that provider does not permit them to train on it. A human at Lemarc does not read your connected data except when you ask us to for support, when the law requires it, or when we must to keep the service secure.</p>
-
-<h3>2.5 Google user data</h3>
-<p>Lemarc's use and transfer of information received from Google APIs to any other app adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
-<p>Specifically: we use Google user data only to provide and improve the features described in this policy, we do not transfer it except as needed to provide those features or as required by law, we do not use it for advertising, and we do not allow humans to read it except with your explicit permission (for example when you ask for support), where required by law, or where necessary for security.</p>
-
-<h3>2.6 Meta Platform Data</h3>
-<p>Lemarc's use of data received from Meta's APIs ("Platform Data", as that term is defined in Meta's Platform Terms) follows Meta's Platform Terms and Developer Policies.</p>
-<p>Specifically: we use Platform Data only to provide and improve the features described in this policy; we do not sell it, and we do not transfer it to any third party such as a data broker, advertising network or information reseller — the only parties that receive it are the processors listed in section 5, acting on our instructions; and we delete Platform Data when you disconnect Meta, when you ask us to, when your access to Lemarc ends, or when Meta requires it, and in any event once we no longer need it for the purpose it was collected.</p>
-
-<h3>2.7 LinkedIn member data</h3>
-<p>Data received from LinkedIn's APIs — which LinkedIn calls "member data" — is used only to provide the features described in this policy: identifying you when you connect, and reading the company pages and ad reporting you authorize. We use it read only. Lemarc does not post, comment or advertise on LinkedIn on your behalf.</p>
-<p>In line with LinkedIn's API Terms of Use and Marketing API restrictions, we do not use LinkedIn member data for advertising, sales or recruiting, to build or enrich audience lists, or to enhance CRM records; we do not combine it with other data to build member profiles; and we do not export, sell or transfer it, except to the processors listed in section 5 acting on our instructions. We hold it only within the limits LinkedIn's terms set, and we delete it when you disconnect LinkedIn, when you ask us to, or when your access to Lemarc ends. As noted in 2.8, LinkedIn does not currently offer a working token-revocation endpoint, so you can also remove Lemarc's access directly in your LinkedIn settings.</p>
-
-<h3>2.8 Disconnecting a platform</h3>
-<p>You can disconnect any platform at any time from inside Lemarc. When you do, we delete the stored token and stop reading from that platform immediately.</p>
-<p>We also ask the platform to revoke the token on its side. Google and Meta support this and we do it. LinkedIn does not currently offer a working revocation endpoint, so a LinkedIn token stays valid on LinkedIn's side until it expires, even though Lemarc has deleted it and no longer uses it. You can remove Lemarc's access directly in your LinkedIn settings.</p>
-
-<h3>2.9 When we act as a processor</h3>
-<p>When you connect a CRM, the underlying records are your data about your customers, and Lemarc handles them on your instructions. We act as a data processor for that data and you are the controller.</p>
-<p>That means: we process it only to provide the service, we will sign a data processing agreement on request, we will help you respond to access and erasure requests from your own contacts, and we will notify you without undue delay if we become aware of a breach affecting your data.</p>
-<p>One detail worth stating plainly. When a record is deleted or merged in your CRM, Lemarc marks its local record as deleted and keeps a pointer so historical outcome totals stay correct. It does not remove the row immediately. Since the record holds no name or email in the first place, what remains is a hash and a set of numbers. If you want it gone entirely, ask us and we will remove it.</p>
+<p>We do not sell your data and we do not share it for advertising. Your data is not used to train AI models, ours or anyone else's. A person at Lemarc does not read your connected data except when you ask us to for support, when the law requires it, or when necessary for security. Lemarc makes no decisions about you that have legal or similarly significant effects.</p>
 
 
-<h2 id="account">3. Data about you as an account holder</h2>
-<p>Separate from anything above, running an account means we hold a small amount of data about you.</p>
-<ul>
-  <li><strong>Your login email address</strong>, held by our authentication provider so you can sign in.</li>
-  <li><strong>Access and refresh tokens</strong> for each platform you connect. These are credentials, and they are what lets Lemarc read on your behalf. They are stored in our database, protected by encryption at rest and row-level security, and deleted when you disconnect the platform or close the account.</li>
-  <li><strong>Operational records</strong> such as when agents ran, what they produced, and what they cost to run.</li>
-</ul>
-<p>This is the one place where the statement "Lemarc does not store personal data" would be wrong, so we are not making it. Lemarc holds no personal data <em>from your connected platforms</em>. It does hold your own account details, because it has to.</p>
+<h2 id="third-parties">4. Who receives it</h2>
+<p><strong>Our processors.</strong> Service providers process data for us under contracts that limit them to providing their service: cloud hosting and database, AI model providers, speech-to-text, web page reading and search data services, and email delivery. For lemarc.ai: site hosting, our CRM (which receives applications), and the analytics and advertising services in section 9 if you allow them. A current list of these providers is available on request at <a href="mailto:support@lemarc.ai">support@lemarc.ai</a>.</p>
+<p><strong>Accounts you connect.</strong> The platforms you connect receive what you ask Lemarc to send them, under their own terms with you.</p>
+<p><strong>Your customers' data.</strong> When you connect a CRM, you are the controller of your contacts' data and Lemarc processes it on your instructions. We will sign a data processing agreement on request and help you answer your contacts' requests.</p>
+<p><strong>Google user data.</strong> Lemarc's use and transfer of information received from Google APIs to any other app adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements. We use Google user data only to provide the features described here, do not use it for advertising, do not transfer it except as needed to provide those features or as required by law, and do not let people read it except with your permission, where required by law, or for security.</p>
+<p><strong>Meta and LinkedIn data.</strong> We use data from Meta's and LinkedIn's APIs only to provide the features described here, in line with their platform terms. We do not sell it, use it for advertising, sales or recruiting, build profiles or audience lists from it, or transfer it to anyone other than our processors acting on our instructions.</p>
 
 
-<h2 id="applicants">4. Data from early access applicants</h2>
-<p>The application form on lemarc.ai collects your name, your work email address, a LinkedIn URL, and an optional opt-in to hear from us.</p>
-<p>We use it to decide whether Lemarc is a fit for you and to get in touch. If you tick the opt-in box, we will also send you occasional notes about what we are building. The box is not ticked by default, and every message we send has an unsubscribe link. Not ticking it does not affect your application.</p>
-<p>We do not sell this data, we do not pass it to anyone, and we do not use it for anything other than what is described here. If you would like your application deleted, email <a href="mailto:support@lemarc.ai">support@lemarc.ai</a> and we will remove it.</p>
+<h2 id="clip">5. Clip to Lemarc (browser extension)</h2>
+<p>Clip to Lemarc is an optional Chrome extension that saves what you read online into your Lemarc workspace. It runs only when you click its button, press its shortcut or choose it from the right-click menu. It then reads the text you selected, or the page's readable text, plus the page's address and title, and sends them to your Lemarc workspace. It keeps the capture in your browser only until Lemarc receives it, then deletes it. It does not read your browsing history, cookies or other tabs, stores no login, and uses what it captures only to save your clips. Nothing it captures is sold.</p>
 
 
-<h2 id="third-parties">5. Third parties (our processors)</h2>
-<p>Four services process data on Lemarc's instructions as part of running the product. Each acts as our <strong>processor</strong>. Where you are the controller and Lemarc is your processor (section 2.9) — your CRM data, for example — these services act as our <strong>subprocessors</strong>. Each is bound by terms that permit it to process data only to provide its service to us, not for its own purposes. There is no fifth.</p>
-<ul>
-  <li><strong>Anthropic</strong> (processor / subprocessor), our AI model provider. It receives the prompts we send, your workspace brief, the knowledge material we inject, and the results of tools the model runs. As described in 2.4, CRM data reaches it only as aggregate totals. Our agreement with Anthropic does not permit it to train on your data.</li>
-  <li><strong>OpenAI</strong> (processor / subprocessor), our image-generation provider. When Lemarc generates a new image, it sends only a text prompt — the visual description, composition and colour values it composes — and no images; your logo and any headline or body copy are added locally and are never sent. When you edit an existing image, that image is sent to OpenAI so it can be modified. No CRM data is ever sent for image generation. OpenAI does not train on this data, holds it for up to 30 days for abuse monitoring and then deletes it, and processes it under a data processing agreement.</li>
-  <li><strong>Jina Reader</strong> (processor / subprocessor), a page-reading service. It receives URLs that you provide (your own site, research links) so that page content can be extracted.</li>
-  <li><strong>Supabase</strong> (processor / subprocessor), our database and authentication host. Your workspace data is stored there.</li>
-</ul>
-<p><strong>Current subprocessors:</strong> Anthropic (AI model provider, United States), OpenAI (image generation, United States), Jina Reader (page reading, United States), and Supabase (database and authentication host, United States).</p>
-<p>These four are what the Lemarc <em>application</em> relies on. The application itself contains no product analytics, no session recording, no error-tracking service and no advertising pixels. The lemarc.ai marketing site is a separate surface with its own standard analytics, covered in section 10.</p>
-
-
-<h2 id="data-deletion">6. Deleting your data</h2>
-<p>There are three ways to remove data from Lemarc, depending on how much you want gone.</p>
+<h2 id="data-deletion">6. Keeping and deleting data</h2>
+<p id="retention">We keep your data while your account is open, because the service relies on your history. Credentials are kept until you disconnect the account they belong to. Early access applications are kept for up to 24 months. Everything else is deleted within 30 days of closing your account, except records we must keep by law.</p>
+<p>To remove data:</p>
 <ol>
-  <li><strong>Disconnect one platform.</strong> Inside Lemarc, go to the connections settings and disconnect it. The stored token is deleted and reading stops immediately.</li>
-  <li><strong>Delete specific data.</strong> Email <a href="mailto:support@lemarc.ai">support@lemarc.ai</a> and tell us what you want removed. We will confirm when it is done.</li>
-  <li><strong>Delete everything.</strong> Email <a href="mailto:support@lemarc.ai">support@lemarc.ai</a> with the subject "delete my account". We will delete your workspace, every connected token, all imported data and your account record within 30 days, and confirm in writing when it is finished.</li>
+  <li><strong>Disconnect an account</strong> in Lemarc's settings. We delete its credentials and stop reading from it immediately, and ask the platform to revoke access where it supports that. Data already imported stays until you ask us to delete it. You can also remove Lemarc's access from the platform's own settings.</li>
+  <li><strong>Delete specific data</strong>, for example everything from one platform: email <a href="mailto:support@lemarc.ai">support@lemarc.ai</a>. We will confirm when it is done.</li>
+  <li><strong>Delete everything</strong>: email <a href="mailto:support@lemarc.ai">support@lemarc.ai</a> with the subject "delete my account". We will delete your workspace, credentials, imported data and account within 30 days and confirm in writing.</li>
 </ol>
-<p>If you connected Lemarc through Meta and want your data removed, option 3 above is the route. You can also remove Lemarc from your Meta account settings at any time, which stops access immediately.</p>
+<p>If you connected Lemarc through Meta, option 2 or 3 removes your Meta data.</p>
 
 
-<h2 id="retention">7. How long we keep things</h2>
+<h2 id="security">7. Security</h2>
+<p>Data is encrypted in transit and at rest, each customer's data is kept apart from every other customer's, and access to production is limited to people who need it.</p>
+
+
+<h2 id="rights">8. Your rights</h2>
+<p>Depending on where you live, you may have the right to access, correct or delete your data, to object to or restrict how we use it, to withdraw consent, and to receive a copy in a portable format. These come from the GDPR in the EU and UK, the Protection of Privacy Law in Israel, and the CCPA in California, which also protects you from discrimination for using them. We do not sell personal information or share it for cross-context behavioural advertising, as those terms are defined under California law.</p>
+<p>Email <a href="mailto:support@lemarc.ai">support@lemarc.ai</a> and we will respond within 30 days. You can also complain to your local data protection authority. Requests about your customers' data are passed to you as its controller.</p>
+
+
+<h2 id="cookies">9. Cookies</h2>
+<p><strong>The Lemarc app</strong> uses only cookies it needs to work, such as keeping you signed in. It has no analytics or advertising cookies.</p>
+<p><strong>lemarc.ai</strong> uses two optional kinds, each off until you allow it:</p>
 <ul>
-  <li>Performance, spend and pseudonymized CRM data: for as long as your account is open, because the value of the product is that it remembers what happened.</li>
-  <li>Access tokens: until you disconnect the platform or close the account.</li>
-  <li>Diagnostic logs from failed imports: 30 days, then deleted.</li>
-  <li>Applications for early access: up to 24 months, or until you ask us to remove yours.</li>
-  <li>Everything else: deleted within 30 days of closing your account, except where we are required to keep records for legal or accounting reasons.</li>
+  <li><strong>Analytics:</strong> Google Analytics (<code>_ga</code>, <code>_ga_&lt;id&gt;</code>), to see how people find and use the site.</li>
+  <li><strong>Marketing:</strong> Google Ads (<code>_gcl_au</code>), Meta Pixel (<code>_fbp</code>, <code>_fbc</code>) and LinkedIn Insight Tag (<code>li_fat_id</code>), to measure and target our ads. Those companies may also set cookies on their own sites.</li>
 </ul>
+<p>Rejecting is as easy as accepting. We store your choice in a cookie named <code>lemarc_consent</code> for one year. Change it any time through <strong>Cookie settings</strong> at the bottom of every page.</p>
 
 
-<h2 id="security">8. Security</h2>
-<p>Data is stored in a managed Postgres database with encryption at rest and row-level security. Access to production is limited to people who need it. Connections to and from Lemarc use HTTPS.</p>
-<p>We are a small team and we are not going to pretend to hold certifications we do not have. If your security review needs specifics, ask and we will answer honestly rather than send you a badge.</p>
+<h2 id="transfers">10. Where data is stored</h2>
+<p>Your workspace data is stored in the EU. Lemarc is operated from Israel, which the European Commission recognises as providing adequate protection, and some of our processors operate in the United States. For transfers not covered by an adequacy decision, we rely on the European Commission's standard contractual clauses.</p>
 
 
-<h2 id="rights">9. Your rights</h2>
-<p>Depending on where you live, you may have the right to access the data we hold about you, to correct it, to delete it, to object to how we use it, to restrict how we use it, and to receive a copy in a portable format. If you are in the EU or UK, these come from the GDPR. If you are in California, similar rights come from the CCPA, including the right not to be discriminated against for exercising them.</p>
-<p>We do not sell personal information and we do not share it for cross-context behavioural advertising, as those terms are defined under California law.</p>
-<p>To exercise any of these, email <a href="mailto:support@lemarc.ai">support@lemarc.ai</a>. We will respond within 30 days. If you are unhappy with our response, you can complain to your local data protection authority.</p>
-<p>Where the data in question belongs to your customers rather than to you, we will pass the request to you and help you answer it, since you are the controller of that data.</p>
+<h2 id="children">11. Children</h2>
+<p>Lemarc is a business tool and is not for anyone under 18. We do not knowingly collect children's data. If you believe a child has given us data, email us and we will delete it.</p>
 
 
-<h2 id="cookies">10. Cookies and the marketing site</h2>
-<p>There are two different surfaces here, and they behave differently.</p>
-<p><strong>The Lemarc application</strong> (the product you sign in to) uses one cookie, to keep you signed in. It carries no third-party analytics, no session recording, no advertising or tracking pixels, and no error-tracking service. What it holds about your use of the product is the operational data described in section 3, kept in our own database.</p>
-<p><strong>The lemarc.ai marketing site</strong> (the public pages, including this one) can use one analytics service: Google Analytics 4, to understand how people find and read the site. It runs on the marketing pages only, never inside the product. We do not run advertising or retargeting pixels here.</p>
-<p>Nothing analytics-related loads before you choose. A banner asks once on your first visit:</p>
-<ul>
-  <li><strong>Accept</strong> loads Google Analytics 4, which sets its own cookies (<code>_ga</code>, <code>_ga_&lt;id&gt;</code>).</li>
-  <li><strong>Decline</strong> loads neither, and expires any analytics cookies left on your browser from an earlier visit.</li>
-</ul>
-<p>Either way, we record your choice in a first-party cookie named <code>lemarc_consent</code> for one year so that we do not ask again. To change your mind, clear this site's cookies in your browser and the banner will return.</p>
+<h2 id="changes">12. Changes to this policy</h2>
+<p>If we change what we do with data, we will update this page and its date. If the change is significant, we will email account holders before it takes effect.</p>
 
 
-<h2 id="transfers">11. Where data is stored</h2>
-<p>Lemarc is operated from Israel, and our database, AI model provider and page-reading service operate in the United States. Depending on where you are, your data may be transferred outside your region.</p>
-<p>Israel has been recognised by the European Commission as providing an adequate level of data protection, which supports transfers from the EU to an Israeli operator. For transfers onward to the United States, and for any transfer not covered by an adequacy decision, we rely on the standard contractual clauses approved by the European Commission. We handle personal data in line with Israel's Protection of Privacy Law.</p>
-
-
-<h2 id="children">12. Children</h2>
-<p>Lemarc is a business tool. It is not for anyone under 18, and we do not knowingly collect data from children. If you believe a child has given us data, email us and we will delete it.</p>
-
-
-<h2 id="changes">13. Changes to this policy</h2>
-<p>If we change what we do with data, we will update this page and change the date at the top. If the change is significant, we will email account holders before it takes effect. We will not start using data in a way this policy does not describe.</p>
-
-
-<h2 id="contact">14. Contact</h2>
-<p>Questions, requests, complaints, or a security issue you would like to report: <a href="mailto:support@lemarc.ai">support@lemarc.ai</a>.</p>
+<h2 id="contact">13. Contact</h2>
+<p>Questions, requests or complaints: <a href="mailto:support@lemarc.ai">support@lemarc.ai</a>.</p>
 
 <p class="note">Operator: Matan Buganim, Israel. Contact: support@lemarc.ai.</p>
 
@@ -326,112 +261,16 @@ footer nav a + a{margin-left:1.25rem}
 <footer>
   <div class="wrap">
     <span>&copy; 2026 Lemarc</span>
-    <nav>
+    <nav aria-label="Footer">
       <a href="/privacy">Privacy</a>
       <a href="/terms">Terms</a>
+      <a href="/accessibility">Accessibility</a>
+      <button type="button" class="linkish" data-cookie-settings>Cookie settings</button>
       <a href="mailto:support@lemarc.ai">support@lemarc.ai</a>
     </nav>
   </div>
 </footer>
 
-<!-- ============ COOKIE CONSENT (marketing site only) ============
-     Blocks GA and any ad pixels until the visitor accepts.
-     Put your real IDs in CONSENT_CONFIG below. Nothing fires before consent.
-     Choice is stored in a first-party cookie ("lemarc_consent"), localStorage as a
-     fallback, so it asks once. Declining also clears analytics cookies already set. -->
-<div id="cc" hidden>
-  <div class="cc-card" role="dialog" aria-live="polite" aria-label="Cookie notice">
-    <p class="cc-text">We use cookies to see how people find and read this site. Analytics only, and only if you say yes. <a href="/privacy#cookies">How we use them.</a></p>
-    <div class="cc-actions">
-      <button class="cc-btn cc-ghost" id="ccNo" type="button">Decline</button>
-      <button class="cc-btn" id="ccYes" type="button">Accept</button>
-    </div>
-  </div>
-</div>
-
-<style>
-[hidden]{display:none !important}
-#cc{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;justify-content:center;padding:var(--pad)}
-.cc-card{
-  background:var(--ink);color:var(--paper);border-radius:8px;
-  max-width:44rem;width:100%;padding:1.125rem 1.25rem;
-  display:flex;flex-wrap:wrap;align-items:center;gap:0.875rem 1.5rem;
-  box-shadow:0 8px 40px rgba(0,0,0,.28);
-}
-.cc-text{margin:0;flex:1 1 20rem;font-size:0.9375rem;line-height:1.5;color:var(--paper)}
-.cc-text a{color:var(--signal-soft);text-underline-offset:3px}
-.cc-actions{display:flex;gap:0.625rem;flex:0 0 auto}
-.cc-btn{
-  font-family:inherit;font-size:0.9375rem;font-weight:500;cursor:pointer;
-  padding:0.55rem 1.125rem;border-radius:5px;border:0;
-  background:var(--signal);color:var(--paper);
-}
-.cc-btn:hover{background:#4038CC}
-.cc-ghost{background:transparent;color:var(--paper);border:1px solid rgba(233,233,225,.35)}
-.cc-ghost:hover{background:rgba(233,233,225,.1)}
-@media(max-width:32rem){.cc-actions{flex:1 1 100%}.cc-btn{flex:1}}
-</style>
-
-<script>
-(function(){
-  // ---- put your real IDs here ----
-  var CONSENT_CONFIG = {
-    ga4: "G-L07BJYTNDW"   // Google Analytics 4 measurement ID
-    // ad pixels: add their loaders inside enable() the same way, so they too wait for consent
-  };
-
-  var KEY = "lemarc_consent";
-  var el = document.getElementById("cc");
-  var saved = read();
-
-  if (saved === "yes") { enable(); }
-  else if (saved === "no") { forget(); }
-  else { el.hidden = false; }
-
-  document.getElementById("ccYes").onclick = function(){ set("yes"); enable(); };
-  document.getElementById("ccNo").onclick  = function(){ set("no"); forget(); };
-
-  function set(v){
-    // Scope to the exact host (no domain attr) so it is consistent across every
-    // page on www.lemarc.ai, for a year. localStorage as a fallback.
-    document.cookie = KEY + "=" + v + "; path=/; max-age=31536000; samesite=lax";
-    try { localStorage.setItem(KEY, v); } catch(e){}
-    el.hidden = true;
-  }
-
-  // Declining applies retroactively: expire any analytics cookies an earlier visit
-  // left behind. GA scopes theirs to the registrable domain, so clear
-  // the dot-domain, bare-domain and host-only forms -- only the matching one bites.
-  function forget(){
-    var base = location.hostname.replace(/^www\./, "");
-    var scopes = ["; domain=." + base, "; domain=" + base, ""];
-    document.cookie.split("; ").forEach(function(pair){
-      var name = pair.split("=")[0];
-      if (name !== "_ga" && name.indexOf("_ga_") !== 0) return;
-      scopes.forEach(function(d){ document.cookie = name + "=; path=/; max-age=0" + d; });
-    });
-  }
-
-  function read(){
-    var m = document.cookie.match(/(?:^|; )lemarc_consent=([^;]+)/);
-    if (m) return m[1];
-    try { return localStorage.getItem(KEY); } catch(e){ return null; }
-  }
-
-  function enable(){
-    if (CONSENT_CONFIG.ga4){
-      var s = document.createElement("script");
-      s.async = true;
-      s.src = "https://www.googletagmanager.com/gtag/js?id=" + CONSENT_CONFIG.ga4;
-      document.head.appendChild(s);
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function(){ dataLayer.push(arguments); };
-      gtag("js", new Date());
-      gtag("config", CONSENT_CONFIG.ga4);
-    }
-  }
-})();
-</script>
 
 </body>
 </html>
